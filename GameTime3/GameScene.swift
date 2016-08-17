@@ -60,7 +60,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 	override func didMoveToView(view: SKView) {
 
 
-		akira.addNode(self.childNodeWithName("Akira")!)
+		akira.node = self.childNodeWithName("Akira")! as? SKSpriteNode
 
 		myLabel.text 		= "Hello, World!"
 		myLabel.fontSize 	= 45

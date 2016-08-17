@@ -6,6 +6,7 @@
 //  Copyright © 2016 Dude Guy. All rights reserved.
 //
 
+
 import Foundation
 public struct This_block {
 	public enum debugged {
@@ -46,3 +47,5 @@ public struct DELETEME {
 	public init(){}
 }
 
+
+public func addNode(){}
