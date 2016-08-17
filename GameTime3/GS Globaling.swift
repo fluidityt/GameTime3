@@ -10,20 +10,8 @@ import Foundation
 import SpriteKit
 
 
-/**
- code: guard let arry_test = ARRAY[get: RISKY_INDEX]
-else { print("JError: INDEX \(RISKY_INDEX) out of array index"); return }*/
 
-struct ref {
 
-/**
- guard let arry_test = ARRAY[get: RISKY_INDEX]
-else { print("JError: INDEX \(RISKY_INDEX) out of array index"); return }*/
-    let  arrays = 0
-    
-}
-
-// ref.arrays
 
 
 

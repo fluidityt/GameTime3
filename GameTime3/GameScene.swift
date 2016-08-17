@@ -8,11 +8,6 @@
 //
 
 import SpriteKit
-extension Array {
-	subscript(safe index: Int) -> Element? {
-		return index >= 0 && index < count ? self[index] : nil
-	}
-}
 ////// more array aggro
 /// (akira_positions?[0])!
 ///
@@ -99,7 +94,8 @@ class GameScene: SKScene, UITextFieldDelegate {
 	//<#MARK: - touchesBegan()#>
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 
-		// Mainloop
+        // TODO: some logic to only have one green sprite at a time
+		
 		looper: for touch in touches
 		{
 			let
@@ -122,17 +118,22 @@ class GameScene: SKScene, UITextFieldDelegate {
                 : move akira
             */
             
-            if      (clicked(akira.node))
+            if (clicked(akira.node))
+            // Toggle Color:
             {
+              
                         akira.node!     .color == GREEN ?
                             akira.node! .color =  RED
                             :
                             (akira.node!.color =  GREEN)
 
-            }
-            // TODO: make these guys modular (not just akira)
+            };
+            
             else if (clicked(saver))
+            // Start Next Atom
             {
+                        // TODO: make these guys modular (not just akira)
+            
                         // FIXME: infinite steps no fun
                         step_counter       += 1
 
@@ -141,29 +142,32 @@ class GameScene: SKScene, UITextFieldDelegate {
                         myLabel     .text  = "saved clip"
 			}
 
-            else if(clicked(l_counter))
+            else if (clicked(l_counter))
+            // Play Stored Atoms
             {
                         akira.node!     .color      = .redColor()
                         akira.node!     .position   = akira.start_pos
 
                         myLabel         .text       = "replaying"
-                        
-                       if let final_action = (akira.act_list[safe: sc-1])
-                        {
-                               let listed  = SKAction.sequence    (akira.act_list)
+                
+                    
+                       if let empty_check = (akira.act_list[safe: sc-1])
+                       {
+                                disregard(empty_check)
+                                let listed  = SKAction.sequence    (akira.act_list)
                             
-                                // does this need a for?
                                 akira.node!.runAction ( listed )
                         
                         // TODO: Give akira a default action for the below error
-                        }else{  myLabel.text("akira failed at running an action")  }
+                        }else{  myLabel.text = "akira failed at running an action"  }
 					
 			}
             
-            else
+            else /** if (clicked(empty_space)) */
+            // Move Akira / Update actions
             {
-                        //we clicked empty space
                         //TODO: Make clicked empty space func (for checks or bit mask states)
+             
                         akira.node!.color == GREEN
                             ?
                               akira.act_list.append    (moveSprite (akira.node!, to: TPOINT))
@@ -182,7 +186,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 
 	//
 	override func update(currentTime: CFTimeInterval) {
-		l_counter!.text = "step count: \(step_counter)"
+		l_counter!.text = "step count: \(step_counter) (Click Here To Play)"
 	};///update()/>
 
 

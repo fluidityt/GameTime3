@@ -40,12 +40,15 @@ public func printl<t, z>(name:z,_ s: t) { print("LOG: <\(name)> -> \(s)")   }
 
 public func printd(name:String) { print("DEBUG: \(name)") }
 public func printl(name:String) { print("LOG: \(name)")   }
-/**
-SINCE CALLOUTS ARE FUCKED
-*/
-public struct DELETEME {
-	public init(){}
+
+
+extension Array {
+	subscript(safe index: Int) -> Element? {
+		return index >= 0 && index < count ? self[index] : nil
+	}
 }
+
+public func disregard<t>(an:t){}
 
 
 public func addNode(){}
