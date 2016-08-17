@@ -1,9 +1,9 @@
 //
 //  GameViewController.swift
-//  GameTime3
+//  g2
 //
-//  Created by Dude Guy  on 8/16/16.
-//  Copyright (c) 2016 Dude Guy . All rights reserved.
+//  Created by Dude Guy on 8/6/16.
+//  Copyright (c) 2016 Dude Guy. All rights reserved.
 //
 
 import UIKit
