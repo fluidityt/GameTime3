@@ -133,6 +133,7 @@ class GameScene: SKScene, UITextFieldDelegate {
             // TODO: make these guys modular (not just akira)
             else if (clicked(saver))
             {
+                        // FIXME: infinite steps no fun
                         step_counter       += 1
 
                         akira.node! .color = RED // so he wont move
@@ -146,16 +147,18 @@ class GameScene: SKScene, UITextFieldDelegate {
                         akira.node!     .position   = akira.start_pos
 
                         myLabel         .text       = "replaying"
-                        // TODO: put sksequence here
-                       /* if let new_action = (akira.act_list[sc-1])
+                        
+                       if let final_action = (akira.act_list[safe: sc-1])
                         {
-                               let evern_newer_action
-                                    = SKAction.sequence(akira.act_list)
+                               let listed  = SKAction.sequence    (akira.act_list)
                             
-                            
-                        }else{  printd("akira failed at running an action")  }
+                                // does this need a for?
+                                akira.node!.runAction ( listed )
+                        
+                        // TODO: Give akira a default action for the below error
+                        }else{  myLabel.text("akira failed at running an action")  }
 					
-			*/}
+			}
             
             else
             {
@@ -163,8 +166,7 @@ class GameScene: SKScene, UITextFieldDelegate {
                         //TODO: Make clicked empty space func (for checks or bit mask states)
                         akira.node!.color == GREEN
                             ?
-                              (akira.act_list[sc]
-                                  = moveSprite(akira.node!, to: TPOINT))
+                              akira.act_list.append    (moveSprite (akira.node!, to: TPOINT))
                             :
                               printd("akira didn't move")
                 
