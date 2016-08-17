@@ -13,6 +13,9 @@ extension Array {
 		return index >= 0 && index < count ? self[index] : nil
 	}
 }
+
+
+
 ////// more array aggro
 /// (akira_positions?[0])!
 ///
@@ -92,7 +95,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 		l_counter 	= self.childNodeWithName("counter")			as? SKLabelNode
 
 
-	};///didMoveToView()/>
+	}; ///didMoveToView()/>
 
 
 
@@ -102,10 +105,24 @@ class GameScene: SKScene, UITextFieldDelegate {
 		// Mainloop
 		looper: for touch in touches
 		{
-			let
-                TPOINT  = touch.locationInNode(self),
-                sc      = step_counter
+            let tPOINT  = touch.locationInNode(self)
+            dtb(touch, tPOINT)
+		}; /// MainLoop />
+
+	}; ///touchesBegan()/>
+
+    func dtb(touch: UITouch,_ point: CGPoint) {
+        
+        z.append((point as? CGPoint))
+            class c {
+                //sc      = step_counter
+			 let TPOINT:CGPoint
             
+            init() {
+            TPOINT = z[0]!
+            
+            }
+            }
 			player!         .removeAllActions()
 			akira.node!     .removeAllActions()
 			
@@ -171,13 +188,7 @@ class GameScene: SKScene, UITextFieldDelegate {
             }
 
 			//defer {	myLabel.text! += "TESTER" }
-
-		}; /// MainLoop />
-
-	}; ///touchesBegan()/>
-
-
-
+    }
 	//
 	override func update(currentTime: CFTimeInterval) {
 		l_counter!.text = "step count: \(step_counter)"
