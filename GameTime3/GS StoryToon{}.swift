@@ -23,13 +23,18 @@ tloc:CGPoint?
 
 let GREEN = UIColor.greenColor(), RED = UIColor.redColor()
 
+/*guard let arry_test = ARRAY[get: RISKY_INDEX]
+else { print("JError: INDEX \(RISKY_INDEX) out of array index"); return }*/
 
 /// Story toon is cool
 struct StoryToon {
 
 	var
 	start_pos 		= CGPoint(x: 0,y: 0)	,
-    act_list 		: [Int: SKAction] 	= [:]	,
+    
+    act_list        : [SKAction]      = []   ,
+    
+    act_list_dict 	: [Int: SKAction] = [:]	,
 	node 			: SKSpriteNode?			//,
 	;
 

@@ -147,7 +147,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 
                         myLabel         .text       = "replaying"
                         // TODO: put sksequence here
-                        if let new_action = (akira.act_list[sc-1])
+                       /* if let new_action = (akira.act_list[sc-1])
                         {
                                let evern_newer_action
                                     = SKAction.sequence(akira.act_list)
@@ -155,7 +155,7 @@ class GameScene: SKScene, UITextFieldDelegate {
                             
                         }else{  printd("akira failed at running an action")  }
 					
-			}
+			*/}
             
             else
             {
