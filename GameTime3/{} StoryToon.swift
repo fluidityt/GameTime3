@@ -23,9 +23,9 @@ import Foundation
 			tloc        :CGPoint?					,
 	
 			///gets added with didSet, and checked (thenreset) at end of TB
-			are_there_new_actions = false			,
+			new_actions = false			,
 			total_steps				= 0				,
-			step_counter			= 0
+			current_steps			= 0
 
     ;
 
@@ -46,12 +46,8 @@ struct StoryToon {
 	
 
 	///stores all actions. make sure it isn't read or wrote to empty
-	var act_list        : [SKAction]      = []
-	{
-		didSet { are_there_new_actions = true }
-	}
-
 	var
+		act_list        : [SKAction]      = [],
 		start_pos 		= CGPoint(x: 0,y: 0)		,
 		node				: SKSpriteNode?			//,
 	;
@@ -62,7 +58,7 @@ struct StoryToon {
 		//-Gives index at 0 a default
 		act_list.append(DEF_ACTION)
 		
-		step_counter += 1
+		current_steps += 1
 		total_steps  += 1
 		
 		act_list.append (SKAction.colorizeWithColor(
@@ -84,7 +80,7 @@ struct StoryToon {
 							  :[StoryToon]
 							  = []
 	 
-			step_counter  = 1
+			current_steps  = 1
 
 			player        :SKSpriteNode?
 			Marc          :SKSpriteNode?

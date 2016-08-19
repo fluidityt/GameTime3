@@ -22,7 +22,8 @@ class GameScene: SKScene, UITextFieldDelegate {
 	
 	//<#MARK: Inits#>
 	var
-		myLabel 	=	 SKLabelNode(fontNamed: "Chalkduster"),
+		myLabel     	=	 SKLabelNode(
+		                      fontNamed: "Chalkduster"),
 		
 		prev_atom	 	:	 SKLabelNode?,
 		next_atom	 	:	 SKLabelNode?,
@@ -33,8 +34,8 @@ class GameScene: SKScene, UITextFieldDelegate {
 	;
 	
 	var
-		textField2  :   UITextField!,
-		thisView	   :   SKView!
+		textField2     :   UITextField!,
+		thisView	      :   SKView!
 	;
 	
 	// enums
@@ -94,10 +95,17 @@ class GameScene: SKScene, UITextFieldDelegate {
 		
 		for touch in touches
 		{
+		
+			defer {
+				total_steps = ts
+				current_steps = cs
+			}
+			
 			//-Inits
-			let
+			var
 				TPOINT  = touch.locationInNode(self),
-				sc      = step_counter
+				cs      = current_steps,
+				ts		  = total_steps
 			
 			tloc = TPOINT
 			
@@ -131,82 +139,58 @@ class GameScene: SKScene, UITextFieldDelegate {
 					
 				}//next_atom/>
 				
-				
+				//-TODO: put safe act interface
 				//-Save any new actions before jumping back
 				else if clicked(prev_atom)
 				{
-					/*
-					
-					func ps(){
-					cs -= 1
-					
-					()//////
-					cs == 0
-					?
-					cs += 1
-					:
-					runAction[cs]
-					;
-					new_actions = false
-					;//////
-					*/
 					()
-						are_there_new_actions == true
+						cs -= 1
+					;//<<
+						cs == 0
 					?
-						/* Advance the scene */ {
-						negneg	(&step_counter)
-						printl	("saved all Actions 4 this Atom (last click)")
-							
-						//-Reset the bool For Next next_atom click
-						toggle	(&are_there_new_actions)		/**/}()
-						
+						//-don't let cs go below 1
+						cs += 1
 					:
-						//-No progress...
-						printl	("didnt advance Atom")
-					;
+						doAction(akira.act_list[cs], on: akira.node)
+					;//>>
+						new_actions = false
 					
-				}//next_atom/>
+
+				}//prevAtom/>
 					
-					//-Start Next Atom
-					//--Don't progress next step if no new actions have been added
+				//-Start Next Atom
+				//--Don't progress next step if no new actions have been added
 				else if (clicked(next_atom))
 				{
-					/*
-					func ns(){
-					cs += 1
-					
-					()//////
-					ts < cs
-					?
-					if (new_actions == true) { ts += 1 }
+					()
+						cs += 1
+					;//<<
+						ts < cs
+					?																	{//
+						if (new_actions == true) {
+							//-increase ts on new action
+							ts += 1
+							akira.act_list.append(DEF_ACTION)
+						}
+						else {
+							//-dont let cs go past ts
+							cs -= 1
+						}																}()//
 					:
-					runAction[cs]
-					;
-					new_actions = false
-					;//////
+						//-run the anim
+						doAction(akira.act_list[cs], on: akira.node)
+					;//>>
+						new_actions = false
 					
-					}
-					*/
 					
-					()///////////////
-					are_there_new_actions == true
-						&&
-						step_counter == total_steps
-						?
-							/* Advance the scene */ {
-								plusplus	(&step_counter)//++
-								printl	( "saved all Actions 4 this Atom (last click)")
-								
-								//-Reset the bool For Next next_atom click
-								toggle	(&are_there_new_actions)		/**/}()
-						:
-						//-No progress...
-						printl	("didnt advance Atom")
-					;////////////////
-				}
+				}//nextAtom/>
+				
 				//-Play Stored Atoms
 				else if clicked(form_molecule)
 				{
+					//-TODO: fix this hotfix (it's a bug)
+					defer { cs = ts }
+					
 					printl("Replaying Atoms")
 					
 					//-Reset some stuff
@@ -215,7 +199,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 					myLabel         .text       = "replaying"
 					
 					//-Ensure safety
-					(akira.act_list[safe: sc-1]) != nil
+					(akira.act_list[safe: cs]) != nil
 						?
 					  //-Set the sequence then play it
 							{let listed  = SKAction.sequence    (akira.act_list)
@@ -232,11 +216,12 @@ class GameScene: SKScene, UITextFieldDelegate {
 				{
 					// TODO: Make clicked empty space func (for checks or bit mask states)
 					()
-						akira.node!.color	== GREEN
+						GREEN == akira.node!.color
 					&&
-						akira.act_list[safe: sc] != nil
-					?
-						akira.act_list[sc] = moveSprite(akira.node!, to: TPOINT)
+						nil != akira.act_list[safe: cs]
+					?												{
+						akira.act_list[cs] = moveSprite(akira.node!, to: TPOINT)
+						new_actions = true					}()
 					:
 						printl("akira didn't move")
 					;
@@ -255,7 +240,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 		
 		//
 		override func update(currentTime: CFTimeInterval) {
-			atom_bar!.text = "Atom: \(step_counter) / \(total_steps)"
+			atom_bar!.text = "Atom: \(current_steps) / \(total_steps)"
 		};///update()/>
 		
 		
