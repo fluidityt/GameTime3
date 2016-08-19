@@ -26,7 +26,7 @@ import Foundation
 			are_there_new_actions = false			,
 			total_steps				= 0				,
 			step_counter			= 0
-			
+
     ;
 
     let
@@ -60,11 +60,15 @@ struct StoryToon {
 	init(){ defer { printl("st init") }
 		
 		//-Gives index at 0 a default
+		act_list.append(DEF_ACTION)
+		
+		step_counter += 1
+		total_steps  += 1
+		
 		act_list.append (SKAction.colorizeWithColor(
-											.blueColor(),
+											.yellowColor(),
 											colorBlendFactor: 1.0,
 											duration: 1.0))
-		act_list.append(DEF_ACTION)
 		
 		character_list.append(self)
 		

@@ -126,47 +126,39 @@ class GameScene: SKScene, UITextFieldDelegate {
 					:										(
 						akira.node!.color =  GREEN	)
 					;/////////////
-				}
+				
 				//////////////
-				 //-Start Next Atom
-				//--Don't progress next step if no new actions have been added
-				else if (clicked(next_atom))
-				{
-					/*
-						- WILL NEED to implement max and && 
-					*/
-					
-					()///////////////
-						StoryToon.are_there_new_actions == true
-					&&
-						step_counter == total_steps
-					?
-						/* Advance the scene */ {
-						plusplus	(&step_counter)//++
-						printl	( "saved all Actions 4 this Atom (last click)")
-								
-						//-Reset the bool For Next next_atom click
-						toggle	(&StoryToon.are_there_new_actions)		/**/}()
-					:
-						//-No progress...
-						printl	("didnt advance Atom")
-					;////////////////
 					
 				}//next_atom/>
-					
-					
+				
+				
 				//-Save any new actions before jumping back
-				else if (clicked(prev_atom))
+				else if clicked(prev_atom)
 				{
+					/*
+					
+					func ps(){
+					cs -= 1
+					
+					()//////
+					cs == 0
+					?
+					cs += 1
+					:
+					runAction[cs]
+					;
+					new_actions = false
+					;//////
+					*/
 					()
-						StoryToon.are_there_new_actions == true
+						are_there_new_actions == true
 					?
 						/* Advance the scene */ {
 						negneg	(&step_counter)
 						printl	("saved all Actions 4 this Atom (last click)")
-								
+							
 						//-Reset the bool For Next next_atom click
-						toggle	(&StoryToon.are_there_new_actions)		/**/}()
+						toggle	(&are_there_new_actions)		/**/}()
 						
 					:
 						//-No progress...
@@ -175,9 +167,45 @@ class GameScene: SKScene, UITextFieldDelegate {
 					
 				}//next_atom/>
 					
+					//-Start Next Atom
+					//--Don't progress next step if no new actions have been added
+				else if (clicked(next_atom))
+				{
+					/*
+					func ns(){
+					cs += 1
 					
+					()//////
+					ts < cs
+					?
+					if (new_actions == true) { ts += 1 }
+					:
+					runAction[cs]
+					;
+					new_actions = false
+					;//////
+					
+					}
+					*/
+					
+					()///////////////
+					are_there_new_actions == true
+						&&
+						step_counter == total_steps
+						?
+							/* Advance the scene */ {
+								plusplus	(&step_counter)//++
+								printl	( "saved all Actions 4 this Atom (last click)")
+								
+								//-Reset the bool For Next next_atom click
+								toggle	(&are_there_new_actions)		/**/}()
+						:
+						//-No progress...
+						printl	("didnt advance Atom")
+					;////////////////
+				}
 				//-Play Stored Atoms
-				else if (clicked(atom_bar))
+				else if clicked(form_molecule)
 				{
 					printl("Replaying Atoms")
 					
@@ -213,17 +241,21 @@ class GameScene: SKScene, UITextFieldDelegate {
 						printl("akira didn't move")
 					;
 					
-				}
-				
-			}/// handleClicks />
-		}// for />
+					// FIXME: this needs to execute after he's not moving
+					// if sc == 1 { akira.start_pos = akirapos }
+					
+			}
+			
+		}/// handleClicks />
+		}//for
+		
 	}; ///touchesBegan()/>
 	
 	
 		
 		//
 		override func update(currentTime: CFTimeInterval) {
-			atom_bar!.text = "step count: \(step_counter) (Click Here To Play)"
+			atom_bar!.text = "Atom: \(step_counter) / \(total_steps)"
 		};///update()/>
 		
 		
