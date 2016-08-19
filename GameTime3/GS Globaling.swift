@@ -18,28 +18,6 @@ import SpriteKit
 
 
 let     _globes_storytoon_link    =     _globes_storytoon_ref
-// Globes used with StoryToon:
-    var
-        character_list  : [StoryToon] = []  ,
-        step_counter    = 1                 ,
-
-        player      :SKSpriteNode?          ,
-        Marc        :SKSpriteNode?          ,
-        Akira       :SKSpriteNode?          ,
-
-        cam         :SKCameraNode?          ,
-        tloc        :CGPoint?               ///
-    ;
-
-    let
-        GREEN       = UIColor.greenColor()  ,
-        RED         = UIColor.redColor()    ,
-        BLUE        = UIColor.blueColor()   ,
-        DEF_ACTION  = SKAction.colorizeWithColor(
-                                   color: BLUE,
-                                   colorBlendFactor: 1.0,
-                                   duration: 1.0)
-    ;
 
 
 // Globes

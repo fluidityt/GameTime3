@@ -10,21 +10,11 @@
     two lights
     wifi card
     9cell battery
-    17" screen
+
+// TODO: find class copy command
     */
 
 import SpriteKit
-////// more array aggro
-/// (akira_positions?[0])!
-///
-
-
-
-var akira = StoryToon()
-
-
-// TODO: find class copy command
-
 
 //<#MARK: - GameScene{}#>
 class GameScene: SKScene, UITextFieldDelegate {
@@ -81,7 +71,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 		thisView = view
 
 
-		saver 		= self.childNodeWithName("saverd")			as? SKLabelNode
+		saver 		         = self.childNodeWithName("saverd")			as? SKLabelNode
 		play_btn_n_counter 	= self.childNodeWithName("counter")			as? SKLabelNode
 
 
@@ -90,34 +80,36 @@ class GameScene: SKScene, UITextFieldDelegate {
 
 
 	//<#MARK: - touchesBegan()#>
-	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    
-        // TODO: some logic to only have one green sprite at a time
-		looper: for touch in touches
-		{
-            /*
-             player!         .removeAllActions()
-             akira.node!     .removeAllActions()
-             */
-            
-            
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+      // TODO: some logic to only have one green sprite at a time
+		// NOTE: Do I need to removeAllActions()?
+		
+      for touch in touches
+    {
+        //-Inits
 			let
-                TPOINT  = touch.locationInNode(self),
-                sc      = step_counter
-            
-            tloc = TPOINT
-            //runAction(player!,        action: SKAction.moveTo(TPOINT, duration: 2))
-            doAction ( .moveTo(TPOINT, duration: 2), on: player )
-            
+				TPOINT  = touch.locationInNode(self),
+				sc      = step_counter
+
+			tloc = TPOINT
+
+          // TODO: make these guys modular (not just akira)
+		
+          doAction ( .moveTo(TPOINT, duration: 2), on: player )
+          
+          
+          handleClicks: do {
             /*
-            Clicked akira ? change color
-                : clicked saver ? stepcounter++
-                : clicked counter ? playActions()
-                : move akira
+                SUMMARY:
+                
+                Clicked akira ? change color
+                 : clicked saver ? stepcounter++
+                 : clicked counter ? playActions()
+                 : move akira
             */
             
+				// Toggle Color:
             if (clicked(akira.node))
-            // Toggle Color:
             {
               
                         akira.node!     .color == GREEN ?
@@ -127,102 +119,72 @@ class GameScene: SKScene, UITextFieldDelegate {
 
             }
             
+				// Start Next Atom
             else if (clicked(saver))
-            // Start Next Atom
             {
-                        // TODO: make these guys modular (not just akira)
-                
-                        // don't progress next step if no new actions have been added
-                        StoryToon.are_there_new_actions == true
-                        ? {
-                            /*
-                                TODO: make a menu option:
-                                "de-select node on Save Atom press"
-                           
-                                akira.node! .color = RED
-                            */
-                            
-                            
-                            /*
-                                TODO: make a func that adds a new index to everyone's array
-                                (this could cause problems later on, should probably have it insert at
-                                step counter)
-                                    -> but that could be taken care of in the "edit" branch
-                                    
-                                    
-                            insert at index can only be called once,
-                             when in edit mode (because it would throw off everyones timers and steps
-                            
-                               GameScene.total_scenes
-                               step_counter
-                                willset { if higher
-                                    update gs.ts 
-                                        forCharlist.append}
-                                        else
-                                            .append
-                                            .insertatindex(
-                                        
-                            */
-                            
-                            //-Advance the scene
-                             plusplus ( &step_counter )
-                              printl("saved all Actions 4 this Atom")
-                            
-                            //-Reset the bool For Next saver click
-                             toggle(&StoryToon.are_there_new_actions)
-                            
-                        } ()
-                        :
-                            printl("didnt advance Atom")
-                        ;//end ternary
-            }
+              // Don't progress next step if no new actions have been added
+              StoryToon.are_there_new_actions == true
+              ?
+                        
+                //-Advance the scene
+                plusplus ( &step_counter )
+                 printl("saved all Actions 4 this Atom")
+                        
+                //-Reset the bool For Next saver click
+                toggle(&StoryToon.are_there_new_actions)}()
+                        
+              :
+                //-No progress...
+                printl("didnt advance Atom")
+           }//saver/>
                 
 
             else if (clicked(play_btn_n_counter))
             // Play Stored Atoms
             {
-                        akira.node!     .color      = .redColor()
-                        akira.node!     .position   = akira.start_pos
+                akira.node!     .color      = .redColor()
+                akira.node!     .position   = akira.start_pos
 
-                        myLabel         .text       = "replaying"
-                          printl("replaying atoms")
-                
+                myLabel         .text       = "replaying"
+                  printl("replaying atoms")
+        
+            
+               (akira.act_list[safe: sc-1]) != nil
+                ?
+                    {let listed  = SKAction.sequence    (akira.act_list)
                     
-                       (akira.act_list[safe: sc-1]) != nil
-                        ? {
-                
-                                let listed  = SKAction.sequence    (akira.act_list)
-                            
-                                doAction(listed, on:akira.node) }()
-                            
-                        // TODO: Give akira a default action for the below error
-                        :
-                           printd("akira failed at running an action")
-                        
-                
-					
-			}
+                    doAction(listed, on:akira.node) }()
+                    
+                :
+                    printd("akira failed at running an action")
+              
+            }
             
             else /** if (clicked(empty_space)) */
             // Move Akira / Update actions
             {
-                        //TODO: Make clicked empty space func (for checks or bit mask states)
-                        // TODO: Sync with sc (will need to relocate .append and fill with default action
-                        akira.node!.color == GREEN
-                          &&  (akira.act_list[safe: sc] != nil)
-                                    ?
-                                      akira.act_list[sc] = (moveSprite (akira.node!, to: TPOINT))
-                                    
-                                    :
-                                      printl("akira didn't move")
-                        
-            }
+              
+               // TODO: Make clicked empty space func (for checks or bit mask states)
+               // TODO: Sync with sc (will need to relocate .append and fill with default action
+              
+                akira.node!.color == GREEN
+                &&
+                akira.act_list[safe: sc] != nil
+                
+                   ?
+                  
+                      akira.act_list[sc] = (moveSprite (akira.node!, to: TPOINT))
+                  
+                   :
+                
+                     printl("akira didn't move")
+              
+              
+           }
 
-			//defer {	myLabel.text! += "TESTER" }
-
-		}; /// MainLoop />
-
-	}; ///touchesBegan()/>
+        }/// handleClicks />
+      }// for />
+  }; ///touchesBegan()/>
 
 
 
