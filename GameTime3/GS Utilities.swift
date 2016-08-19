@@ -9,6 +9,18 @@
 
     import Foundation
     import SpriteKit
+    extension SKAction {
+         public class func colorizeWithColor(color color: UIColor, colorBlendFactor: CGFloat, duration sec: NSTimeInterval) -> SKAction
+         {
+            return (
+                SKAction.colorizeWithColor(
+                            color,
+                             colorBlendFactor: colorBlendFactor,
+                              duration: sec)
+            )
+         }
+     
+    }
 
 
 public func doAction(action: SKAction, on node: SKNode?)
@@ -85,18 +97,6 @@ public func doAction(action: SKAction, on node: SKNode?)
    
 //<#MARK: - Extensions#>
     /// Adds multiline conformity when splitting commas
-    extension SKAction {
-         public class func colorizeWithColor(color color: UIColor, colorBlendFactor: CGFloat, duration sec: NSTimeInterval) -> SKAction
-         {
-            return (
-                SKAction.colorizeWithColor(
-                            color: color,
-                             colorBlendFactor: colorBlendFactor,
-                              duration: sec)
-            )
-         }
-     
-    }
     
     
     

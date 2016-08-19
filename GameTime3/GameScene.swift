@@ -21,7 +21,6 @@ import SpriteKit
 
 
 var akira = StoryToon()
-var Akira : SKNode?
 
 
 // TODO: find class copy command
@@ -53,7 +52,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 	//<#MARK: - didMovetoView()#>
 	override func didMoveToView(view: SKView) {
 
-
+        printd("wtf")
 		akira.node = self.childNodeWithName("Akira")! as? SKSpriteNode
         
 		myLabel.text 		= "Hello, World!"
@@ -94,7 +93,6 @@ class GameScene: SKScene, UITextFieldDelegate {
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     
         // TODO: some logic to only have one green sprite at a time
-		
 		looper: for touch in touches
 		{
             /*
@@ -190,18 +188,18 @@ class GameScene: SKScene, UITextFieldDelegate {
                           printl("replaying atoms")
                 
                     
-                       if let empty_check = (akira.act_list[safe: sc-1])
-                       {
-                                disregard(empty_check)
+                       (akira.act_list[safe: sc-1]) != nil
+                        ? {
+                
                                 let listed  = SKAction.sequence    (akira.act_list)
                             
-                                doAction(listed, on:akira.node)
-                        
+                                doAction(listed, on:akira.node) }()
+                            
                         // TODO: Give akira a default action for the below error
-                        }else{
-                            printd("akira failed at running an action"  )
+                        :
+                           printd("akira failed at running an action")
                         
-                            }
+                
 					
 			}
             
@@ -211,11 +209,13 @@ class GameScene: SKScene, UITextFieldDelegate {
                         //TODO: Make clicked empty space func (for checks or bit mask states)
                         // TODO: Sync with sc (will need to relocate .append and fill with default action
                         akira.node!.color == GREEN
-                            ?
-                              akira.act_list[sc] = (moveSprite (akira.node!, to: TPOINT))
-                            :
-                              printl("akira didn't move")
-                
+                          &&  (akira.act_list[safe: sc] != nil)
+                                    ?
+                                      akira.act_list[sc] = (moveSprite (akira.node!, to: TPOINT))
+                                    
+                                    :
+                                      printl("akira didn't move")
+                        
             }
 
 			//defer {	myLabel.text! += "TESTER" }
