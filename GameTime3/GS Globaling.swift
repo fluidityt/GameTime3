@@ -25,7 +25,7 @@ let     _globes_storytoon_link    =     _globes_storytoon_ref
 
         player      :SKSpriteNode?          ,
         Marc        :SKSpriteNode?          ,
-        Akira       :SKSpriteNode?          ,
+        Akira_node  :SKSpriteNode?          ,
 
         cam         :SKCameraNode?          ,
         tloc        :CGPoint?               ///

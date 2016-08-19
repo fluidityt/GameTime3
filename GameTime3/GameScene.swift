@@ -19,6 +19,8 @@ import SpriteKit
 ///
 
 var akira = StoryToon()
+var Akira : SKNode?
+
 // TODO: find class copy command
 
 //<#MARK: - GameScene{}#>
@@ -57,7 +59,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 
 
 		akira.node = self.childNodeWithName("Akira")! as? SKSpriteNode
-
+        
 		myLabel.text 		= "Hello, World!"
         myLabel.fontSize 	= 45
 		myLabel.position
