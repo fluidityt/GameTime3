@@ -37,7 +37,7 @@
 		C1DC12B51D63F97200C17ADD /* GS Globaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GS Globaling.swift"; sourceTree = "<group>"; };
 		C1DC12B61D63F97200C17ADD /* GS Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GS Utilities.swift"; sourceTree = "<group>"; };
 		C1DC12B91D63F99100C17ADD /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = GameTime3/GameScene.sks; sourceTree = "<group>"; };
-		C1DC12BA1D63F99100C17ADD /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameScene.swift; path = GameTime3/GameScene.swift; sourceTree = "<group>"; };
+		C1DC12BA1D63F99100C17ADD /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GameScene.swift; path = GameTime3/GameScene.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C1DC12BB1D63F99100C17ADD /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		C1DC12BC1D63F99100C17ADD /* {} StoryToon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "{} StoryToon.swift"; path = "GameTime3/{} StoryToon.swift"; sourceTree = "<group>"; };
 		C1DC12C11D6414AF00C17ADD /* GS Pubs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GS Pubs.swift"; sourceTree = "<group>"; };

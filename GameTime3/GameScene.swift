@@ -118,16 +118,15 @@ class GameScene: SKScene, UITextFieldDelegate {
                             (akira.node!.color =  GREEN)
 
             }
-            
-				// Start Next Atom
+//////////////
+				//-Start Next Atom
             else if (clicked(saver))
             {
               // Don't progress next step if no new actions have been added
               StoryToon.are_there_new_actions == true
               ?
-                        
                 //-Advance the scene
-                plusplus ( &step_counter )
+                {plusplus ( &step_counter )
                  printl("saved all Actions 4 this Atom")
                         
                 //-Reset the bool For Next saver click
@@ -136,32 +135,35 @@ class GameScene: SKScene, UITextFieldDelegate {
               :
                 //-No progress...
                 printl("didnt advance Atom")
-           }//saver/>
+					
+			   }//saver/>
                 
 
+				//-Play Stored Atoms
             else if (clicked(play_btn_n_counter))
-            // Play Stored Atoms
             {
+					printl("Replaying Atoms")
+					
+					//-Reset some stuff
                 akira.node!     .color      = .redColor()
-                akira.node!     .position   = akira.start_pos
-
-                myLabel         .text       = "replaying"
-                  printl("replaying atoms")
-        
-            
+                 akira.node!     .position   = akira.start_pos
+                  myLabel         .text       = "replaying"
+					
+					//-Ensure safety
                (akira.act_list[safe: sc-1]) != nil
                 ?
+						  //-Set the sequence then play it
                     {let listed  = SKAction.sequence    (akira.act_list)
-                    
-                    doAction(listed, on:akira.node) }()
+                     doAction(listed, on:akira.node) }()
                     
                 :
-                    printd("akira failed at running an action")
+						  //-Binding didn't occur..
+						  printd("akira failed at running an action")
               
             }
-            
+////////////
+				// Move Akira / Update actions
             else /** if (clicked(empty_space)) */
-            // Move Akira / Update actions
             {
               
                // TODO: Make clicked empty space func (for checks or bit mask states)
