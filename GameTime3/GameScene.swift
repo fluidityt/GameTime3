@@ -18,39 +18,27 @@ import SpriteKit
 /// (akira_positions?[0])!
 ///
 
+
+
 var akira = StoryToon()
 var Akira : SKNode?
 
-extension SKAction {
-   
-        func runAction(node: Int,_ action: SKAction)
-        {
-            //node.runAction(action)
-        }
-}
 
 // TODO: find class copy command
+
 
 //<#MARK: - GameScene{}#>
 class GameScene: SKScene, UITextFieldDelegate {
 
 
     //<#MARK: Inits#>
-	var
+    var
         myLabel 	=	 SKLabelNode(fontNamed: "Chalkduster"),
         saver	 	:	 SKLabelNode?,
         play_btn_n_counter 	:	 SKLabelNode?,
         play_btn_n_counter_counter = 0
 	;
 
-	// more globes
-	var
-        akira_actions                   = [SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 0.5)],
-        akira_action_array_index        = 0,
-        akira_positions                 = [CGPoint(x: 2, y: 1), CGPoint(x:1, y:2)],
-        akira_positions_index           = 0
-
-	// nodes
 	var
         textField2  :   UITextField!,
 	    thisView	:	SKView!
@@ -207,7 +195,7 @@ class GameScene: SKScene, UITextFieldDelegate {
                                 disregard(empty_check)
                                 let listed  = SKAction.sequence    (akira.act_list)
                             
-                                akira.node!.runAction ( listed )
+                                doAction(listed, on:akira.node)
                         
                         // TODO: Give akira a default action for the below error
                         }else{
@@ -224,7 +212,7 @@ class GameScene: SKScene, UITextFieldDelegate {
                         // TODO: Sync with sc (will need to relocate .append and fill with default action
                         akira.node!.color == GREEN
                             ?
-                              akira.act_list.append    (moveSprite (akira.node!, to: TPOINT))
+                              akira.act_list[sc] = (moveSprite (akira.node!, to: TPOINT))
                             :
                               printl("akira didn't move")
                 

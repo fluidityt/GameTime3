@@ -51,8 +51,10 @@ struct StoryToon {
 		
 	
 	init(){
-
+        // gives index at 0 a default
         act_list.append(SKAction.colorizeWithColor(.blueColor(),	colorBlendFactor: 1.0, duration: 1.0))
 		character_list.append(self)
+        akira.act_list.append(DEF_ACTION)
+
 	}; static let link:Int?=nil
 }
