@@ -34,15 +34,17 @@ let _globes_storytoon_ref   =   character_list
 
 /** Story Toon is fun */
 struct StoryToon {
-    
+
+    ///gets added with didSet, and checked (thenreset) at end of TB
+    static var are_there_new_actions = false
+
+    ///stores all actions. make sure it isn't read or wrote to empty
+    var act_list        : [SKAction]      = [] {
+        didSet { StoryToon.are_there_new_actions = true } }
     
 	var
 	start_pos 		= CGPoint(x: 0,y: 0)	,
-    
-    act_list        : [SKAction]      = []   ,
-    
-    act_list_dict 	: [Int: SKAction] = [:]	,
-	node 			: SKSpriteNode?			//,
+    node 			: SKSpriteNode?			//,
 	;
 		
 	

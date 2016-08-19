@@ -5,7 +5,13 @@
 //
 //  Created by Dude Guy on 8/6/16.
 //  Copyright (c) 2016 Dude Guy. All rights reserved.
-//
+/*
+-  laptop cooler
+    two lights
+    wifi card
+    9cell battery
+    17" screen
+    */
 
 import SpriteKit
 ////// more array aggro
@@ -19,38 +25,33 @@ var akira = StoryToon()
 class GameScene: SKScene, UITextFieldDelegate {
 
 
-
-	// labels
+    //<#MARK: Inits#>
 	var
-	myLabel 	=	 SKLabelNode(fontNamed: "Chalkduster"),
-	saver	 	:	 SKLabelNode?,
-	l_counter 	:	 SKLabelNode?,
-	l_counter_counter = 0
-	;/// />
+        myLabel 	=	 SKLabelNode(fontNamed: "Chalkduster"),
+        saver	 	:	 SKLabelNode?,
+        l_counter 	:	 SKLabelNode?,
+        l_counter_counter = 0
+	;
 
 	// more globes
 	var
-	akira_actions = [SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 0.5)],
-	akira_action_array_index = 0,
-	akira_positions = [CGPoint(x: 2, y: 1), CGPoint(x:1, y:2)],
-	akira_positions_index = 0
+        akira_actions                   = [SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 0.5)],
+        akira_action_array_index        = 0,
+        akira_positions                 = [CGPoint(x: 2, y: 1), CGPoint(x:1, y:2)],
+        akira_positions_index           = 0
 
-	// branched <
-	var textField2:		UITextField!
-	var thisView	:	SKView!
-	;/// branched />
+	// nodes
+	var
+        textField2  :   UITextField!,
+	    thisView	:	SKView!
+	;
 
-
-	// DELETEME:
-	var nextMoveIsRight = true
-
+    // enums
 	enum vector { case
 		right, left
 	}
-
-
-//comm
-
+    
+    
 	//<#MARK: - didMovetoView()#>
 	override func didMoveToView(view: SKView) {
 
@@ -93,7 +94,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 
 	//<#MARK: - touchesBegan()#>
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-
+    
         // TODO: some logic to only have one green sprite at a time
 		
 		looper: for touch in touches
@@ -101,10 +102,11 @@ class GameScene: SKScene, UITextFieldDelegate {
 			let
                 TPOINT  = touch.locationInNode(self),
                 sc      = step_counter
-            
+           /*
 			player!         .removeAllActions()
 			akira.node!     .removeAllActions()
-			
+			*/
+            
             tloc = TPOINT
             
             // always happens unless you touched ET (see above guard)
@@ -127,20 +129,29 @@ class GameScene: SKScene, UITextFieldDelegate {
                             :
                             (akira.node!.color =  GREEN)
 
-            };
+            }
             
             else if (clicked(saver))
             // Start Next Atom
             {
                         // TODO: make these guys modular (not just akira)
-            
-                        // FIXME: infinite steps no fun
-                        step_counter       += 1
+                        // TODO: don't progress next step if no new actions have been added
+                        StoryToon.are_there_new_actions == true
+                        ? {
+                            // FIXME: infinite steps no fun
+                            step_counter       += 1
 
-                        akira.node! .color = RED // so he wont move
+                            akira.node! .color = RED // so he wont move
 
-                        myLabel     .text  = "saved clip"
-			}
+                            myLabel     .text  = "saved clip"
+                            
+                            // Reset the bool For Next saver click
+                            StoryToon.are_there_new_actions = false
+                        } ()
+                        :
+                            printd("didnt advance Atom")
+            }
+                
 
             else if (clicked(l_counter))
             // Play Stored Atoms
@@ -159,7 +170,10 @@ class GameScene: SKScene, UITextFieldDelegate {
                                 akira.node!.runAction ( listed )
                         
                         // TODO: Give akira a default action for the below error
-                        }else{  myLabel.text = "akira failed at running an action"  }
+                        }else{
+                            printd("akira failed at running an action"  )
+                        
+                            }
 					
 			}
             
@@ -167,7 +181,7 @@ class GameScene: SKScene, UITextFieldDelegate {
             // Move Akira / Update actions
             {
                         //TODO: Make clicked empty space func (for checks or bit mask states)
-             
+                        // TODO: Sync with sc (will need to relocate .append and fill with default action
                         akira.node!.color == GREEN
                             ?
                               akira.act_list.append    (moveSprite (akira.node!, to: TPOINT))
