@@ -27,8 +27,10 @@ Globes used with StoryToon:
  
       GREEN         = UIColor.greenColor()
       RED           = UIColor.redColor()
+      DEF_ACTION    = SKAction.colorizeWithColor()
 */
 let _globes_storytoon_ref   =   character_list
+
 
 
 

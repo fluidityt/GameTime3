@@ -33,7 +33,12 @@ let     _globes_storytoon_link    =     _globes_storytoon_ref
 
     let
         GREEN       = UIColor.greenColor()  ,
-        RED         = UIColor.redColor()    ///
+        RED         = UIColor.redColor()    ,
+        BLUE        = UIColor.blueColor()   ,
+        DEF_ACTION  = SKAction.colorizeWithColor(
+                                   color: BLUE,
+                                   colorBlendFactor: 1.0,
+                                   duration: 1.0)
     ;
 
 

@@ -29,8 +29,8 @@ class GameScene: SKScene, UITextFieldDelegate {
 	var
         myLabel 	=	 SKLabelNode(fontNamed: "Chalkduster"),
         saver	 	:	 SKLabelNode?,
-        l_counter 	:	 SKLabelNode?,
-        l_counter_counter = 0
+        play_btn_n_counter 	:	 SKLabelNode?,
+        play_btn_n_counter_counter = 0
 	;
 
 	// more globes
@@ -59,7 +59,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 		akira.node = self.childNodeWithName("Akira")! as? SKSpriteNode
 
 		myLabel.text 		= "Hello, World!"
-		myLabel.fontSize 	= 45
+        myLabel.fontSize 	= 45
 		myLabel.position
 			= CGPoint(
                 x:CGRectGetMidX(self.frame),
@@ -76,16 +76,16 @@ class GameScene: SKScene, UITextFieldDelegate {
                 frame: CGRectMake(0, 0, frame.width, 100))
 
 		view.addSubview(textField2)
-		textField2.delegate = self
-		textField2.adjustsFontSizeToFitWidth = true
-		textField2.backgroundColor = UIColor.blueColor()
-		self.view!.addSubview(textField2)
+         textField2.delegate = self
+		  textField2.adjustsFontSizeToFitWidth = true
+		   textField2.backgroundColor = UIColor.blueColor()
+		    self.view!.addSubview(textField2)
 
 		thisView = view
 
 
 		saver 		= self.childNodeWithName("saverd")			as? SKLabelNode
-		l_counter 	= self.childNodeWithName("counter")			as? SKLabelNode
+		play_btn_n_counter 	= self.childNodeWithName("counter")			as? SKLabelNode
 
 
 	};///didMoveToView()/>
@@ -135,31 +135,61 @@ class GameScene: SKScene, UITextFieldDelegate {
             // Start Next Atom
             {
                         // TODO: make these guys modular (not just akira)
-                        // TODO: don't progress next step if no new actions have been added
+                
+                        // don't progress next step if no new actions have been added
                         StoryToon.are_there_new_actions == true
                         ? {
-                            // FIXME: infinite steps no fun
-                            step_counter       += 1
-
-                            akira.node! .color = RED // so he wont move
-
-                            myLabel     .text  = "saved clip"
+                            /*
+                                TODO: make a menu option:
+                                "de-select node on Save Atom press"
+                           
+                                akira.node! .color = RED
+                            */
                             
-                            // Reset the bool For Next saver click
-                            StoryToon.are_there_new_actions = false
+                            
+                            /*
+                                TODO: make a func that adds a new index to everyone's array
+                                (this could cause problems later on, should probably have it insert at
+                                step counter)
+                                    -> but that could be taken care of in the "edit" branch
+                                    
+                                    
+                            insert at index can only be called once,
+                             when in edit mode (because it would throw off everyones timers and steps
+                            
+                               GameScene.total_scenes
+                               step_counter
+                                willset { if higher
+                                    update gs.ts 
+                                        forCharlist.append}
+                                        else
+                                            .append
+                                            .insertatindex(
+                                        
+                            */
+                            
+                            //-Advance the scene
+                             plusplus ( &step_counter )
+                              printl("saved all Actions 4 this Atom")
+                            
+                            //-Reset the bool For Next saver click
+                             toggle(&StoryToon.are_there_new_actions)
+                            
                         } ()
                         :
-                            printd("didnt advance Atom")
+                            printl("didnt advance Atom")
+                        ;//end ternary
             }
                 
 
-            else if (clicked(l_counter))
+            else if (clicked(play_btn_n_counter))
             // Play Stored Atoms
             {
                         akira.node!     .color      = .redColor()
                         akira.node!     .position   = akira.start_pos
 
                         myLabel         .text       = "replaying"
+                          printl("replaying atoms")
                 
                     
                        if let empty_check = (akira.act_list[safe: sc-1])
@@ -200,7 +230,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 
 	//
 	override func update(currentTime: CFTimeInterval) {
-		l_counter!.text = "step count: \(step_counter) (Click Here To Play)"
+		play_btn_n_counter!.text = "step count: \(step_counter) (Click Here To Play)"
 	};///update()/>
 
 
