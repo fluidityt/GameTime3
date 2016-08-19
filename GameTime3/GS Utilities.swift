@@ -11,6 +11,12 @@
     import SpriteKit
 
 
+public func doAction(action: SKAction, on node: SKNode?)
+{
+    node!.runAction(action)
+}
+
+
 
     public func toggle(inout variable:Bool) {
         variable == true ?
@@ -64,7 +70,19 @@
 
 //<#MARK: - SK:#>
     //public func addNode(){}
-
+    /*
+    
+    extension SKNode {
+        func runAction(node: SKNode!,_ action: SKAction)
+        {            node.runAction(action)        }
+        
+        func runAction(node: SKNode!, action: SKAction, duration: NSTimeInterval)
+        {            node.runAction(action)        }
+        
+    }
+    */
+    ///-Squashing out the OOP
+   
 //<#MARK: - Extensions#>
     /// Adds multiline conformity when splitting commas
     extension SKAction {
@@ -77,9 +95,12 @@
                               duration: sec)
             )
          }
+     
     }
     
-//<#MARK: Makes arrays safe#>
+    
+    
+    /// ok//<#MARK: Makes arrays safe#>
     extension Array {
         subscript(safe index: Int) -> Element? {
             return index >= 0 && index < count ? self[index] : nil

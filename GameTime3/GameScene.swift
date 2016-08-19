@@ -21,6 +21,14 @@ import SpriteKit
 var akira = StoryToon()
 var Akira : SKNode?
 
+extension SKAction {
+   
+        func runAction(node: Int,_ action: SKAction)
+        {
+            //node.runAction(action)
+        }
+}
+
 // TODO: find class copy command
 
 //<#MARK: - GameScene{}#>
@@ -101,19 +109,19 @@ class GameScene: SKScene, UITextFieldDelegate {
 		
 		looper: for touch in touches
 		{
+            /*
+             player!         .removeAllActions()
+             akira.node!     .removeAllActions()
+             */
+            
+            
 			let
                 TPOINT  = touch.locationInNode(self),
                 sc      = step_counter
-           /*
-			player!         .removeAllActions()
-			akira.node!     .removeAllActions()
-			*/
             
             tloc = TPOINT
-            
-            // always happens unless you touched ET (see above guard)
-            player!.runAction(
-                SKAction.moveTo(TPOINT, duration: 2))
+            //runAction(player!,        action: SKAction.moveTo(TPOINT, duration: 2))
+            doAction ( .moveTo(TPOINT, duration: 2), on: player )
             
             /*
             Clicked akira ? change color
@@ -218,7 +226,7 @@ class GameScene: SKScene, UITextFieldDelegate {
                             ?
                               akira.act_list.append    (moveSprite (akira.node!, to: TPOINT))
                             :
-                              printd("akira didn't move")
+                              printl("akira didn't move")
                 
             }
 
