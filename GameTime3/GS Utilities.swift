@@ -54,6 +54,10 @@ public func doAction(action: SKAction, on node: SKNode?)
     {
         variable += 1
     }
+	  func negneg(inout variable: Int)
+    {
+        variable -= 1
+    }
     
 //<#MARK: - XCODE:#>
     /// to ignore annoying warnings

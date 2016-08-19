@@ -14,14 +14,19 @@ import Foundation
     var
 			akira				 = StoryToon()			,
 			character_list  : [StoryToon] = []	,
-			step_counter    = 1						,
 
 			player      :SKSpriteNode?				,
 			Marc        :SKSpriteNode?				,
 			Akira       :SKSpriteNode?				,
 
 			cam         :SKCameraNode?				,
-			tloc        :CGPoint?						///
+			tloc        :CGPoint?					,
+	
+			///gets added with didSet, and checked (thenreset) at end of TB
+			are_there_new_actions = false			,
+			total_steps				= 0				,
+			step_counter			= 0
+			
     ;
 
     let
@@ -38,19 +43,17 @@ import Foundation
 
 /** Story Toon is fun */
 struct StoryToon {
-
-	///gets added with didSet, and checked (thenreset) at end of TB
-	static var are_there_new_actions = false
+	
 
 	///stores all actions. make sure it isn't read or wrote to empty
 	var act_list        : [SKAction]      = []
 	{
-	didSet { StoryToon.are_there_new_actions = true }
+		didSet { are_there_new_actions = true }
 	}
 
 	var
-	start_pos 		= CGPoint(x: 0,y: 0)		,
-	node				: SKSpriteNode?			//,
+		start_pos 		= CGPoint(x: 0,y: 0)		,
+		node				: SKSpriteNode?			//,
 	;
 
 

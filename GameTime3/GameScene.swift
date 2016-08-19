@@ -85,132 +85,141 @@ class GameScene: SKScene, UITextFieldDelegate {
 		
 	};///didMoveToView()/>
 	
-	
-	
-		//<#MARK: - touchesBegan()#>
-		override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-			// TODO: some logic to only have one green sprite at a time
-			// NOTE: Do I need to removeAllActions()?
+
+
+	//<#MARK: - touchesBegan()#>
+	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+		// TODO: some logic to only have one green sprite at a time
+		// NOTE: Do I need to removeAllActions()?
+		
+		for touch in touches
+		{
+			//-Inits
+			let
+				TPOINT  = touch.locationInNode(self),
+				sc      = step_counter
 			
-			for touch in touches
-			{
-				//-Inits
-				let
-					TPOINT  = touch.locationInNode(self),
-					sc      = step_counter
+			tloc = TPOINT
+			
+			// TODO: make these guys modular (not just akira)
+			
+			doAction ( .moveTo(TPOINT, duration: 2), on: player )
+			
+			
+			handleClicks: do {
+				/*
+				SUMMARY:
 				
-				tloc = TPOINT
+				Clicked akira ? change color
+				: clicked next_atom ? stepcounter++
+				: clicked counter ? playActions()
+				: move akira
+				*/
 				
-				// TODO: make these guys modular (not just akira)
-				
-				doAction ( .moveTo(TPOINT, duration: 2), on: player )
-				
-				
-				handleClicks: do {
+				// Toggle Color:
+				if (clicked(akira.node))
+				{
+					()////////////
+						akira.node! .color == GREEN
+					?
+						akira.node! .color =  RED
+					:										(
+						akira.node!.color =  GREEN	)
+					;/////////////
+				}
+				//////////////
+				 //-Start Next Atom
+				//--Don't progress next step if no new actions have been added
+				else if (clicked(next_atom))
+				{
 					/*
-					SUMMARY:
-					
-					Clicked akira ? change color
-					: clicked next_atom ? stepcounter++
-					: clicked counter ? playActions()
-					: move akira
+						- WILL NEED to implement max and && 
 					*/
 					
-					// Toggle Color:
-					if (clicked(akira.node))
-					{
-						
-						akira.node!    .color == GREEN
-						 ?
-							akira.node! .color =  RED
-						 :
-							(akira.node!.color =  GREEN)
-						
-					}
-					//////////////
-					//-Start Next Atom
-					else if (clicked(next_atom))
-					{
-						// Don't progress next step if no new actions have been added
+					()///////////////
 						StoryToon.are_there_new_actions == true
-							?
-								//-Advance the scene
-								{plusplus ( &step_counter )
-									printl("saved all Actions 4 this Atom")
-									
-									//-Reset the bool For Next next_atom click
-									toggle(&StoryToon.are_there_new_actions)}()
+					&&
+						step_counter == total_steps
+					?
+						/* Advance the scene */ {
+						plusplus	(&step_counter)//++
+						printl	( "saved all Actions 4 this Atom (last click)")
 								
-							:
-							//-No progress...
-							printl("didnt advance Atom")
-						
-					}//next_atom/>
-						
-					else if (clicked(prev_atom))
-					{
-						// Save any new actions before jumping back
-						StoryToon.are_there_new_actions == true
-							?
-								//-Advance the scene
-								{plusplus ( &step_counter )
-									printl("saved all Actions 4 this Atom")
-									
-									//-Reset the bool For Next next_atom click
-									toggle(&StoryToon.are_there_new_actions)}()
-								
-							:
-							//-No progress...
-							printl("didnt advance Atom")
-						
-					}//next_atom/>
-						//-Play Stored Atoms
-					else if (clicked(atom_bar))
-					{
-						printl("Replaying Atoms")
-						
-						//-Reset some stuff
-						akira.node!     .color      = .redColor()
-						akira.node!     .position   = akira.start_pos
-						myLabel         .text       = "replaying"
-						
-						//-Ensure safety
-						(akira.act_list[safe: sc-1]) != nil
-							?
-						  //-Set the sequence then play it
-								{let listed  = SKAction.sequence    (akira.act_list)
-									doAction(listed, on:akira.node) }()
-								
-							:
-							//-Binding didn't occur..
-							printd("akira failed at running an action")
-						
-					}
-						////////////
-						// Move Akira / Update actions
-					else /** if (clicked(empty_space)) */
-					{
-						
-						// TODO: Make clicked empty space func (for checks or bit mask states)
-						// TODO: Sync with sc (will need to relocate .append and fill with default action
-						
-						akira
-							.node!.color
-								== GREEN
-							&&	akira
-									.act_list[safe: sc]
-										!= nil
-									?
-										akira.act_list[sc] = moveSprite(akira.node!, to: TPOINT)
-									:
-										printl("akira didn't move")
-					}
+						//-Reset the bool For Next next_atom click
+						toggle	(&StoryToon.are_there_new_actions)		/**/}()
+					:
+						//-No progress...
+						printl	("didnt advance Atom")
+					;////////////////
 					
-				}/// handleClicks />
-			}// for />
-  }; ///touchesBegan()/>
-		
-		
+				}//next_atom/>
+					
+					
+				//-Save any new actions before jumping back
+				else if (clicked(prev_atom))
+				{
+					()
+						StoryToon.are_there_new_actions == true
+					?
+						/* Advance the scene */ {
+						negneg	(&step_counter)
+						printl	("saved all Actions 4 this Atom (last click)")
+								
+						//-Reset the bool For Next next_atom click
+						toggle	(&StoryToon.are_there_new_actions)		/**/}()
+						
+					:
+						//-No progress...
+						printl	("didnt advance Atom")
+					;
+					
+				}//next_atom/>
+					
+					
+				//-Play Stored Atoms
+				else if (clicked(atom_bar))
+				{
+					printl("Replaying Atoms")
+					
+					//-Reset some stuff
+					akira.node!     .color      = .redColor()
+					akira.node!     .position   = akira.start_pos
+					myLabel         .text       = "replaying"
+					
+					//-Ensure safety
+					(akira.act_list[safe: sc-1]) != nil
+						?
+					  //-Set the sequence then play it
+							{let listed  = SKAction.sequence    (akira.act_list)
+								doAction(listed, on:akira.node) }()
+							
+						:
+						//-Binding didn't occur..
+						printd("akira failed at running an action")
+					
+				}
+
+				// Move Akira / Update actions
+				else /** if (clicked(empty_space)) */
+				{
+					// TODO: Make clicked empty space func (for checks or bit mask states)
+					()
+						akira.node!.color	== GREEN
+					&&
+						akira.act_list[safe: sc] != nil
+					?
+						akira.act_list[sc] = moveSprite(akira.node!, to: TPOINT)
+					:
+						printl("akira didn't move")
+					;
+					
+				}
+				
+			}/// handleClicks />
+		}// for />
+	}; ///touchesBegan()/>
+	
+	
 		
 		//
 		override func update(currentTime: CFTimeInterval) {
