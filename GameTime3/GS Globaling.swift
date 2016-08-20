@@ -10,32 +10,42 @@ import Foundation
 import SpriteKit
 
 
+var menu_right_open = false
+/////////
+//-Nodes
+///
+var
+	player			:	SKSpriteNode?				,
+	Marc				:	SKSpriteNode?				,
+	Akira				:	SKSpriteNode?				,
+	menu_right     :  SKSpriteNode?,
+
+	prev_atom	 	:	SKLabelNode?,
+	next_atom	 	:	SKLabelNode?,
+	form_molecule  :	SKLabelNode?,
+	atom_bar 	   :	SKLabelNode?,
+	
+	error_node     :   SKNode? = nil,
+	myLabel     	=	SKLabelNode(fontNamed: "Chalkduster")
+;
+
+var node_list = Set<String>()
 
 
-
-//let     _globes_storytoon_link    =     _globes_storytoon_ref
-
-
-// Globes
-
+////////////
 //-AniGlobes
-	let A_MOVE_LEFT = SKAction.moveBy(CGVectorMake(-405.0, 0.0), duration: 1.0)
+///
+let A_MOVE_LEFT = SKAction.moveBy(CGVectorMake(-405.0, 0.0), duration: 0.25)
 
-	let A_MOVE_RIGHT = SKAction.moveBy(CGVectorMake(405.0, 0.0), duration: 1.0)
+let A_MOVE_RIGHT = SKAction.moveBy(CGVectorMake(405.0, 0.0), duration: 0.25)
 
 
 
-	var node_list = Set<String>()
 
 //-Globes used with StoryToon:
     var
 			akira				 = StoryToon()			,
 			character_list  : [StoryToon] = []	,
-
-			player      :SKSpriteNode?				,
-			Marc        :SKSpriteNode?				,
-			Akira       :SKSpriteNode?				,
-
 			cam         :SKCameraNode?				,
 			tloc        :CGPoint?					,
 	
@@ -59,18 +69,7 @@ import SpriteKit
 
 	
 	//<#MARK: Inits#>
-	var
-		myLabel     	=	 SKLabelNode(
-		                      fontNamed: "Chalkduster"),
-		
-		prev_atom	 	:	 SKLabelNode?,
-		next_atom	 	:	 SKLabelNode?,
-		form_molecule  :   SKLabelNode?,
-		atom_bar 	   :	 SKLabelNode?,
-		menu_right     :   SKLabelNode?,
-		error_node     :   SKNode? = nil
-	
-	;
+
 	
 	var
 		textField2     :   UITextField!,

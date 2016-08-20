@@ -22,6 +22,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 		initNodes: do {
 		
 			//-TODO: Deal with scope issue on .self
+			//-TODO: Check for nil AFTER addNode returns
 		 	func addNode (node_name: String)
 				-> SKNode
 			{
@@ -32,18 +33,22 @@ class GameScene: SKScene, UITextFieldDelegate {
 				}
 				
 				//-Initialize it (node = return())
-				printl("-> addNode succuses")
+				printl("-> addNode \(self.childNodeWithName(node_name)!.name!) succuses")
 				 node_list.insert(node_name)
 			     return (self.childNodeWithName(node_name)!)
 			}
 	
 			akira.node		= addNode("Akira")			as? SKSpriteNode
 			player			= addNode("plaar")			as? SKSpriteNode
+			menu_right		= addNode("menu_right")		as? SKSpriteNode
+			
 			prev_atom		= addNode("prev_atom")		as? SKLabelNode
 			next_atom		= addNode("next_atom")		as? SKLabelNode
 			form_molecule	= addNode("form_molecule") as? SKLabelNode
 			atom_bar			= addNode("atom_bar")		as? SKLabelNode
 			
+			func nilCheck() {} // Make sure lol..
+		
 		}; /* End initNodes */
 		
 		
@@ -87,6 +92,8 @@ class GameScene: SKScene, UITextFieldDelegate {
 		
 		//-Utility:
 		func doAction(action: SKAction, on node: SKNode?){
+			guard node != nil else {
+				printd("->doAction failed--did you initialize node?"); return }
 			node!.runAction(action)}
 		
 		//-Main touch processoereor
@@ -191,10 +198,16 @@ class GameScene: SKScene, UITextFieldDelegate {
 					;/////
 				
 				
-				//case "menu_right":
+				case "menu_right":
+				//-Open / close the menu
 				
-				//doAction(<#T##action: SKAction##SKAction#>, on: <#T##SKNode?#>)
-				
+					toggle(&menu_right_open)
+					
+						menu_right_open
+					?
+						menu_right!.runAction(A_MOVE_LEFT)//doAction(A_MOVE_LEFT, on: menu_right)
+					:
+						menu_right!.runAction(A_MOVE_RIGHT)//doAction(A_MOVE_RIGHT, on: menu_right)
 				
 
 				default: /** if (clicked(empty_space)) */
