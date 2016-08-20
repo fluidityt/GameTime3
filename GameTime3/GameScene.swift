@@ -7,6 +7,7 @@
 //  Copyright (c) 2016 Dude Guy. All rights reserved.
 
 var movem = false
+var dragger : SKNode?
 
 import SpriteKit
 
@@ -86,10 +87,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 			
 			
 			func nilCheck() {} // Make sure lol..
-			func testMenuRight() {
-				movem = true
-				menu_right!.runAction(A_MOVE_LEFT)
-			}; testMenuRight()
+		
 		
 		}; /* End initNodes */
 		
@@ -253,7 +251,15 @@ class GameScene: SKScene, UITextFieldDelegate {
 					:
 						menu_right!.runAction(A_MOVE_RIGHT)//doAction(A_MOVE_RIGHT, on: menu_right)
 				
-
+				case "ship":
+					movem = true
+					dragger = ship
+					
+					if (menu_right_open == true) {
+						menu_right_open = false
+						menu_right!.runAction(A_MOVE_RIGHT)
+					}
+				
 				default: /** if (clicked(empty_space)) */
 				// Move Akira / Update actions
 				// TODO: Make clicked empty space func (for checks or bit mask states)
@@ -282,7 +288,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 		for touch in touches {
 			if movem == true {
 			let TPOINT  = touch.locationInNode(self)
-			prev_atom!.position = TPOINT
+			dragger!.position = TPOINT
 			}
 			
 		}
