@@ -1,14 +1,13 @@
 /**
 	TODO:
-	-  add the "total" clips
+	- build menu slider
 	-	add other toons
-	-  test editmode slider
+
 	-  fix label constraints
-	- going in reverse is not going to work as planned
-		or is it?
 	- figure out start positions
 	- check for safety at all cs locations
-	- i need to fix
+
+
 	BUG:
 	vv (hotfix): cs not updating on form molecule (replay)
 	xx anims not working on ns / ps
@@ -35,7 +34,18 @@ import Foundation
 import SpriteKit
 
 var x = 4
+print(x)
+
+func addNode( node_name: String) -> SKNode {
+
+	var error_node : SKNode?
+
+	if let error_node = self.childNodeWithName(node_name)
+	{
+	node_list.insert(node_name)
+	return error_node!
+	}
+	else { printd("-> addNode: failed to init \(node_name)") }
 
 
-
-	
+	}

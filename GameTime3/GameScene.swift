@@ -51,6 +51,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 		initNodes: do {
 			
 			akira.node	= self.childNodeWithName("Akira")!			as? SKSpriteNode
+			node_list.insert(self.childNodeWithName("Akira")!.name!)
 			player		= self.childNodeWithName("plaar")			as? SKSpriteNode
 
 			prev_atom   = self.childNodeWithName("prev_atom")		as? SKLabelNode
@@ -59,7 +60,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 							= self.childNodeWithName("form_molecule") as? SKLabelNode
 			atom_bar 	= self.childNodeWithName("atom_bar")		as? SKLabelNode
 		}
-		
+		printd(self.childNodeWithName("Akira")!)
 		 makeLabel: do {
 			myLabel.text			= "Hello, World!"
 			 myLabel.fontSize 	= 45
@@ -115,6 +116,20 @@ class GameScene: SKScene, UITextFieldDelegate {
 			
 			
 			handleClicks: do {
+				//-TODO: Enums wont work dynamic
+				enum nodes { case
+				akira, pa, na, ab, fm, mr }
+				
+				//-Inefficient but fast and readable
+				let node_clicked: nodes = { () -> nodes in
+					var ret_node : nodes? ;
+					clicked(akira.node) ? ret_node = nodes.akira : ()
+					clicked(prev_atom)  ? ret_node = nodes.pa		: ()
+					clicked(next_atom)  ? ret_node = nodes.na		: ()
+					clicked(atom_bar)   ? ret_node = nodes.pa		: ()
+					
+					 return ret_node!
+					 }()
 				/*
 				SUMMARY:
 				
@@ -186,7 +201,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 				}//nextAtom/>
 				
 				//-Play Stored Atoms
-				else if clicked(form_molecule)
+				else if clicked(form_molecule) || clicked(atom_bar)
 				{
 					//-TODO: fix this hotfix (it's a bug)
 					defer { cs = ts }

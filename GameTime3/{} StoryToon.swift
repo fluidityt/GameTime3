@@ -8,9 +8,16 @@
 import SpriteKit
 import Foundation
 
+//-AniGlobes
+	let A_MOVE_LEFT = SKAction.moveBy(CGVectorMake(-405.0, 0.0), duration: 1.0)
+
+	let A_MOVE_RIGHT = SKAction.moveBy(CGVectorMake(405.0, 0.0), duration: 1.0)
 
 
-// Globes used with StoryToon:
+
+	var node_list = Set<String>()
+
+//-Globes used with StoryToon:
     var
 			akira				 = StoryToon()			,
 			character_list  : [StoryToon] = []	,

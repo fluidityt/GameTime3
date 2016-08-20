@@ -13,11 +13,7 @@ import SpriteKit
 
 
 
-
-
-
-
-let     _globes_storytoon_link    =     _globes_storytoon_ref
+//let     _globes_storytoon_link    =     _globes_storytoon_ref
 
 
 // Globes
