@@ -1,20 +1,24 @@
 /**
 	TODO:
-	-  implement menu
+	-  drag and drop from menu
 	-	add other toons
-
+	-	array for new objects
+	-	close menu on object pickup
+		change parents?
+	-  how to unlock all nodes
+	
+	LATER:
 	-  fix label constraints
 	- figure out start positions
 	- check for safety at all cs locations
 	- figure out how to switch spawners
 		maybe a for loop
 	- put globes into each block call
-	
+
 	BUG:
 	vv (hotfix): cs not updating on form molecule (replay)
 	xx anims not working on ns / ps
 	xx fix insert / append statements
-
 	xx- -> ns (ts doesn't go past but cs does)
 
 */

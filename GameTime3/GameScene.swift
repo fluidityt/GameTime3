@@ -6,7 +6,7 @@
 //  Created by Dude Guy on 8/6/16.
 //  Copyright (c) 2016 Dude Guy. All rights reserved.
 
-
+var movem = false
 
 import SpriteKit
 
@@ -41,6 +41,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 			akira.node		= addNode("Akira")			as? SKSpriteNode
 			player			= addNode("plaar")			as? SKSpriteNode
 			menu_right		= addNode("menu_right")		as? SKSpriteNode
+			Marc				= addNode("Marc")				as? SKSpriteNode
 			
 			prev_atom		= addNode("prev_atom")		as? SKLabelNode
 			next_atom		= addNode("next_atom")		as? SKLabelNode
@@ -90,11 +91,14 @@ class GameScene: SKScene, UITextFieldDelegate {
 		// NOTE: Do I need to removeAllActions()?
 		// TODO: make these guys modular (not just akira)
 		
+		movem = false
+		
 		//-Utility:
 		func doAction(action: SKAction, on node: SKNode?){
-			guard node != nil else {
-				printd("->doAction failed--did you initialize node?"); return }
-			node!.runAction(action)}
+			guard (node != nil) else {
+				printd("->doAction failed--did you initialize node?"); return
+			}; node!.runAction(action)
+		}
 		
 		//-Main touch processoereor
 		for touch in touches {	defer { total_steps = ts;	current_steps = cs	}
@@ -112,14 +116,13 @@ class GameScene: SKScene, UITextFieldDelegate {
 			//-Get stuff then switch it (label and do are formatting only)
 			switcher: do {
 			
-				//-Prep switch statement
-				var test_node : String? = nodeAtPoint(TPOINT).name
-				guard test_node != nil else {
-					printd("found nil"); return
-				}
+			  //-Prep switch statement
+			  var test_node: String? = nodeAtPoint(TPOINT).name;
 				
-				//-Run switch statement
-				switch test_node! {
+			  guard (test_node != nil)
+			   else { printd("found nil"); return }
+				
+			  switch test_node! {
 				
 				case "Akira":
 				// Toggle Color:
@@ -136,7 +139,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 				case "prev_atom":
 				//-TODO: put safe act interface
 				//-Save any new actions before jumping back
-				
+					
 					cs -= 1
 					
 					cs == 0	?	cs += 1	:	doAction(akira.act_list[cs], on: akira.node)
@@ -233,6 +236,16 @@ class GameScene: SKScene, UITextFieldDelegate {
 		} // for />
 	} // touchesBegan() />
 	
+	override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+		//-Main touch processoereor
+		for touch in touches {
+			if movem == true {
+			let TPOINT  = touch.locationInNode(self)
+			prev_atom!.position = TPOINT
+			}
+			
+		}
+	}
 	
 	
 	//-Udatess
@@ -245,4 +258,11 @@ class GameScene: SKScene, UITextFieldDelegate {
 
 };//////// GameSprite/>
 
-
+//////
+//
+////
+//
+//
+//
+//
+//
