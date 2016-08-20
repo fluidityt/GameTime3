@@ -5,14 +5,10 @@
 //
 //  Created by Dude Guy on 8/6/16.
 //  Copyright (c) 2016 Dude Guy. All rights reserved.
-/*
--  laptop cooler
-two lights
-wifi card
-9cell battery
+
 
 // TODO: find class copy command
-*/
+
 
 import SpriteKit
 
@@ -28,9 +24,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 		prev_atom	 	:	 SKLabelNode?,
 		next_atom	 	:	 SKLabelNode?,
 		form_molecule  :   SKLabelNode?,
-		atom_bar 	   :	 SKLabelNode?,
-		
-		atom_bar_counter = 0
+		atom_bar 	   :	 SKLabelNode?
 	;
 	
 	var
@@ -46,21 +40,33 @@ class GameScene: SKScene, UITextFieldDelegate {
 	
 	//<#MARK: - didMovetoView()#>
 	override func didMoveToView(view: SKView) {
-		
+		func addNode( node_name: String) -> SKNode {
+			
+			//-todo, make a default node that is an error node lol
+			var ret_node : SKNode?
+			
+			if let error_node = self.childNodeWithName(node_name)
+			{
+				node_list.insert(node_name)
+				ret_node = error_node
+				printl("-> addNode succuses")
+			}
+			else { printd("-> addNode: failed to init \(node_name)") }
+			
+			return ret_node!
+			
+		}
 		//-Init nodes
 		initNodes: do {
 			
-			akira.node	= self.childNodeWithName("Akira")!			as? SKSpriteNode
-			node_list.insert(self.childNodeWithName("Akira")!.name!)
-			player		= self.childNodeWithName("plaar")			as? SKSpriteNode
-
-			prev_atom   = self.childNodeWithName("prev_atom")		as? SKLabelNode
-			next_atom 	= self.childNodeWithName("next_atom")		as? SKLabelNode
-			form_molecule
-							= self.childNodeWithName("form_molecule") as? SKLabelNode
-			atom_bar 	= self.childNodeWithName("atom_bar")		as? SKLabelNode
+			akira.node		= addNode("Akira")			as? SKSpriteNode
+			player			= addNode("plaar")			as? SKSpriteNode
+			prev_atom		= addNode("prev_atom")		as? SKLabelNode
+			next_atom		= addNode("next_atom")		as? SKLabelNode
+			form_molecule	= addNode("form_molecule") as? SKLabelNode
+			atom_bar			= addNode("atom_bar")		as? SKLabelNode
 		}
-		printd(self.childNodeWithName("Akira")!)
+		
 		 makeLabel: do {
 			myLabel.text			= "Hello, World!"
 			 myLabel.fontSize 	= 45
@@ -93,15 +99,8 @@ class GameScene: SKScene, UITextFieldDelegate {
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		// TODO: some logic to only have one green sprite at a time
 		// NOTE: Do I need to removeAllActions()?
-		
-		for touch in touches
-		{
-		
-			defer {
-				total_steps = ts
-				current_steps = cs
-			}
-			
+		// TODO: make these guys modular (not just akira)
+		for touch in touches {	defer { total_steps = ts;	current_steps = cs	}
 			//-Inits
 			var
 				TPOINT  = touch.locationInNode(self),
@@ -110,35 +109,13 @@ class GameScene: SKScene, UITextFieldDelegate {
 			
 			tloc = TPOINT
 			
-			// TODO: make these guys modular (not just akira)
-			
+			//-Move player
 			doAction ( .moveTo(TPOINT, duration: 2), on: player )
 			
+			var test_node : String? = nodeAtPoint(TPOINT).name
 			
-			handleClicks: do {
-				//-TODO: Enums wont work dynamic
-				enum nodes { case
-				akira, pa, na, ab, fm, mr }
-				
-				//-Inefficient but fast and readable
-				let node_clicked: nodes = { () -> nodes in
-					var ret_node : nodes? ;
-					clicked(akira.node) ? ret_node = nodes.akira : ()
-					clicked(prev_atom)  ? ret_node = nodes.pa		: ()
-					clicked(next_atom)  ? ret_node = nodes.na		: ()
-					clicked(atom_bar)   ? ret_node = nodes.pa		: ()
-					
-					 return ret_node!
-					 }()
-				/*
-				SUMMARY:
-				
-				Clicked akira ? change color
-				: clicked next_atom ? stepcounter++
-				: clicked counter ? playActions()
-				: move akira
-				*/
-				
+			switch  test_node {
+			
 				// Toggle Color:
 				if (clicked(akira.node))
 				{
@@ -249,7 +226,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 		}/// handleClicks />
 		}//for
 		
-	}; ///touchesBegan()/>
+	 ///touchesBegan()/>
 	
 	
 		
