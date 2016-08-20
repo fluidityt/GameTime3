@@ -6,7 +6,8 @@
 	-  fix label constraints
 	- figure out start positions
 	- check for safety at all cs locations
-
+	- figure out how to switch spawners
+		maybe a for loop
 	BUG:
 	vv (hotfix): cs not updating on form molecule (replay)
 	xx anims not working on ns / ps
@@ -35,5 +36,23 @@ import SpriteKit
 
 var x = 4
 print(x)
+func funs(){
+
+	var niller : String?
+
+	if 1==0 {
+	niller = "fun"
+	}
+	else { niller = nil }
 
 
+	guard niller != nil
+	 else {
+		print("nildo")
+		return
+	}
+
+	print(niller)
+}
+
+funs()

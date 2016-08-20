@@ -24,7 +24,10 @@ class GameScene: SKScene, UITextFieldDelegate {
 		prev_atom	 	:	 SKLabelNode?,
 		next_atom	 	:	 SKLabelNode?,
 		form_molecule  :   SKLabelNode?,
-		atom_bar 	   :	 SKLabelNode?
+		atom_bar 	   :	 SKLabelNode?,
+		menu_right     :   SKLabelNode?,
+		error_node     :   SKNode? = nil
+	
 	;
 	
 	var
@@ -40,25 +43,23 @@ class GameScene: SKScene, UITextFieldDelegate {
 	
 	//<#MARK: - didMovetoView()#>
 	override func didMoveToView(view: SKView) {
-		func addNode( node_name: String) -> SKNode {
-			
-			//-todo, make a default node that is an error node lol
-			var ret_node : SKNode?
-			
-			if let error_node = self.childNodeWithName(node_name)
-			{
-				node_list.insert(node_name)
-				ret_node = error_node
-				printl("-> addNode succuses")
-			}
-			else { printd("-> addNode: failed to init \(node_name)") }
-			
-			return ret_node!
-			
-		}
 		//-Init nodes
 		initNodes: do {
-			
+			//-TODO: Deal with scope issue on .self
+			func addNode( node_name: String) -> SKNode
+			{
+				//-Check for errors
+				guard nil != self.childNodeWithName(node_name) else {
+					printd("-> addNode: failed to init \(node_name)")
+					return error_node!
+				}
+				
+				//-Initialize it (node = return())
+				printl("-> addNode succuses")
+				 node_list.insert(node_name)
+			     return (self.childNodeWithName(node_name)!)
+			}
+	
 			akira.node		= addNode("Akira")			as? SKSpriteNode
 			player			= addNode("plaar")			as? SKSpriteNode
 			prev_atom		= addNode("prev_atom")		as? SKLabelNode
@@ -73,11 +74,12 @@ class GameScene: SKScene, UITextFieldDelegate {
 			  myLabel.position
 					= CGPoint(
 						x: CGRectGetMidX(self.frame),
-						y: CGRectGetMidY(self.frame))
+						y: CGRectGetMidY(self.frame));
+			    myLabel.name = "center label"
 			
 			self.addChild(myLabel)
 		}
-		
+		/*
 		  makeTextField: do {
 			textField2
 				= UITextField(
@@ -90,7 +92,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 			view.addSubview(textField2)
 			 self.view!.addSubview(textField2)
 		}
-		
+		*/
 	};///didMoveToView()/>
 	
 
@@ -112,13 +114,17 @@ class GameScene: SKScene, UITextFieldDelegate {
 			//-Move player
 			doAction ( .moveTo(TPOINT, duration: 2), on: player )
 			
+			//-Get stuff then switch it
 			var test_node : String? = nodeAtPoint(TPOINT).name
 			
-			switch  test_node {
+			guard test_node != nil else {
+				printd("found nil"); return
+			}
+			switch test_node! {
 			
 				// Toggle Color:
-				if (clicked(akira.node))
-				{
+				case "Akira":
+				
 					()////////////
 						akira.node! .color == GREEN
 					?
@@ -127,36 +133,25 @@ class GameScene: SKScene, UITextFieldDelegate {
 						akira.node!.color =  GREEN	)
 					;/////////////
 				
-				//////////////
-					
-				}//next_atom/>
 				
-				//-TODO: put safe act interface
-				//-Save any new actions before jumping back
-				else if clicked(prev_atom)
-				{
-					()
-						cs -= 1
-					;//<<
-						cs == 0
-					?
-						//-don't let cs go below 1
-						cs += 1
-					:
-						doAction(akira.act_list[cs], on: akira.node)
-					;//>>
-						new_actions = false
+				case "prev_atom":
+					//-TODO: put safe act interface
+					//-Save any new actions before jumping back
+				
+					cs -= 1
 					
+					cs == 0	?	cs += 1	:	doAction(akira.act_list[cs], on: akira.node)
+					
+					new_actions = false
 
-				}//prevAtom/>
+
+				case "next_atom":
+					//-Start Next Atom
+					//--Don't progress next step if no new actions have been added
+				
+					cs += 1
 					
-				//-Start Next Atom
-				//--Don't progress next step if no new actions have been added
-				else if (clicked(next_atom))
-				{
-					()
-						cs += 1
-					;//<<
+					()/////
 						ts < cs
 					?																	{//
 						if (new_actions == true) {
@@ -171,15 +166,15 @@ class GameScene: SKScene, UITextFieldDelegate {
 					:
 						//-run the anim
 						doAction(akira.act_list[cs], on: akira.node)
-					;//>>
-						new_actions = false
+					;///////
+					
+					new_actions = false
 					
 					
-				}//nextAtom/>
+			
 				
 				//-Play Stored Atoms
-				else if clicked(form_molecule) || clicked(atom_bar)
-				{
+				case "form_molecule", "atom_bar":
 					//-TODO: fix this hotfix (it's a bug)
 					defer { cs = ts }
 					
@@ -190,24 +185,30 @@ class GameScene: SKScene, UITextFieldDelegate {
 					akira.node!     .position   = akira.start_pos
 					myLabel         .text       = "replaying"
 					
-					//-Ensure safety
-					(akira.act_list[safe: cs]) != nil
-						?
-					  //-Set the sequence then play it
-							{let listed  = SKAction.sequence    (akira.act_list)
-								doAction(listed, on:akira.node) }()
-							
-						:
+					()/////
+						//-Ensure safety
+						(akira.act_list[safe: cs]) != nil
+					?
+						//-Set the sequence then play it
+						{let listed  = SKAction.sequence    (akira.act_list)
+						doAction(listed, on:akira.node) }()
+					:
 						//-Binding didn't occur..
 						printd("akira failed at running an action")
-					
-				}
+					;/////
+				
+				
+				case "menu_right":
+				
+					doAction(<#T##action: SKAction##SKAction#>, on: <#T##SKNode?#>)
+				
+				
 
-				// Move Akira / Update actions
-				else /** if (clicked(empty_space)) */
-				{
+				default: /** if (clicked(empty_space)) */
+					// Move Akira / Update actions
 					// TODO: Make clicked empty space func (for checks or bit mask states)
-					()
+				
+					()//////
 						GREEN == akira.node!.color
 					&&
 						nil != akira.act_list[safe: cs]
@@ -216,17 +217,18 @@ class GameScene: SKScene, UITextFieldDelegate {
 						new_actions = true					}()
 					:
 						printl("akira didn't move")
-					;
+					;///////
 					
 					// FIXME: this needs to execute after he's not moving
 					// if sc == 1 { akira.start_pos = akirapos }
 					
 			}
-			
-		}/// handleClicks />
-		}//for
-		
-	 ///touchesBegan()/>
+			/// handleClicks />
+		}
+		//for
+	}
+	///touchesBegan()/>
+	
 	
 	
 		
