@@ -6,7 +6,7 @@
 	-	close menu on object pickup
 		change parents?
 	-  how to unlock all nodes
-	
+	-	xp with node.parent = can change
 	LATER:
 	-  fix label constraints
 	- figure out start positions
@@ -16,6 +16,7 @@
 	- put globes into each block call
 
 	BUG:
+	-	changed parent in skeditor fucks over addNode()
 	vv (hotfix): cs not updating on form molecule (replay)
 	xx anims not working on ns / ps
 	xx fix insert / append statements
@@ -42,23 +43,4 @@ import SpriteKit
 
 var x = 4
 print(x)
-func funs(){
 
-	var niller : String?
-
-	if 1==0 {
-	niller = "fun"
-	}
-	else { niller = nil }
-
-
-	guard niller != nil
-	 else {
-		print("nildo")
-		return
-	}
-
-	print(niller)
-}
-
-funs()

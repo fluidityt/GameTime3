@@ -10,6 +10,7 @@ import Foundation
 import SpriteKit
 
 
+
 var menu_right_open = false
 /////////
 //-Nodes
@@ -19,12 +20,15 @@ var
 	Marc				:	SKSpriteNode?				,
 	Akira				:	SKSpriteNode?				,
 	menu_right     :  SKSpriteNode?,
+	ship				:	SKSpriteNode?,
+	bkgg				:  SKSpriteNode?,
+	top_bar			:	SKSpriteNode?,
 
+	atom_bar 	   :	SKLabelNode?,
 	prev_atom	 	:	SKLabelNode?,
 	next_atom	 	:	SKLabelNode?,
 	form_molecule  :	SKLabelNode?,
-	atom_bar 	   :	SKLabelNode?,
-	
+
 	error_node     :   SKNode? = nil,
 	myLabel     	=	SKLabelNode(fontNamed: "Chalkduster")
 ;

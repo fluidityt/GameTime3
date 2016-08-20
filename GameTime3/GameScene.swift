@@ -18,37 +18,78 @@ class GameScene: SKScene, UITextFieldDelegate {
 		//-Super initials
 		current_steps += 1
 		total_steps   += 1
+		error_node?.name = "error"
 		
 		initNodes: do {
 		
 			//-TODO: Deal with scope issue on .self
 			//-TODO: Check for nil AFTER addNode returns
-		 	func addNode (node_name: String)
+			var lol = self
+			func addNode (node_name: String)
 				-> SKNode
 			{
 				//-Check for errors
 				guard nil != self.childNodeWithName(node_name) else {
-					printd("-> addNode: failed to init \(node_name)")
+					printd("-> addNode: failed to init \(node_name)" +
+						"check spelling-- check node type-- check nil")
 					return error_node!
 				}
 				
 				//-Initialize it (node = return())
-				printl("-> addNode \(self.childNodeWithName(node_name)!.name!) succuses")
+				printl("-> addNode \(node_name) success--make sure return as isn't nil!")
 				 node_list.insert(node_name)
-			     return (self.childNodeWithName(node_name)!)
+				  return (self.childNodeWithName(node_name)!)
+				
 			}
+			
+			func addNode2 (node_name: String, to this: String) -> SKNode {
+				//-TODO: Add guard...
+				print(" -> addNode2: attempting \(node_name)")
+				return self.childNodeWithName(this)!.childNodeWithName(node_name)!
+				
+			}
+			func addNode3 (node_name: String, to this: String, from that: String) -> SKNode {
+				//-TODO: Add guard...
+				printl(" -> addNode3: attempting \(node_name)")
+				 return	self.childNodeWithName(that)!
+									.childNodeWithName(this)!
+										.childNodeWithName(node_name)!
+				
+			}
+
+			
+			typealias SKSN = SKSpriteNode
+			typealias SKLN = SKLabelNode
 	
+			
+			//-TODO: Change these into addSprite, addLabel, etc
+			//-GameScene
+			bkgg				= addNode("bkgg")				as? SKSpriteNode
 			akira.node		= addNode("Akira")			as? SKSpriteNode
 			player			= addNode("plaar")			as? SKSpriteNode
-			menu_right		= addNode("menu_right")		as? SKSpriteNode
-			Marc				= addNode("Marc")				as? SKSpriteNode
 			
-			prev_atom		= addNode("prev_atom")		as? SKLabelNode
-			next_atom		= addNode("next_atom")		as? SKLabelNode
-			form_molecule	= addNode("form_molecule") as? SKLabelNode
-			atom_bar			= addNode("atom_bar")		as? SKLabelNode
+			//-bkgg
+			menu_right = addNode2("menu_right", to: "bkgg")		as? SKSpriteNode
+			top_bar	  = addNode2("top_bar", to: "bkgg")			as? SKSN
+			
+			//-atom_bar
+			prev_atom		= addNode3("prev_atom", to: "top_bar", from: "bkgg") as? SKLN
+			next_atom		= addNode3("next_atom", to: "top_bar", from: "bkgg") as? SKLN
+			form_molecule	= addNode3("form_molecule", to: "top_bar", from: "bkgg") as? SKLN
+			atom_bar			= addNode3("atom_bar", to: "top_bar", from: "bkgg")	as? SKLN
+			
+			//-menu_right
+			Marc		  = addNode3("Marc", to: "menu_right", from: "bkgg")		as? SKSpriteNode
+			ship		  = addNode3("ship", to: "menu_right", from: "bkgg")		as? SKSpriteNode
+			
+			printl("ALL FUCKING NODES INITIALIZED OMG GO TO BED")
+			
 			
 			func nilCheck() {} // Make sure lol..
+			func testMenuRight() {
+				movem = true
+				menu_right!.runAction(A_MOVE_LEFT)
+			}; testMenuRight()
 		
 		}; /* End initNodes */
 		

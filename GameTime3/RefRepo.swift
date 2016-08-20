@@ -7,7 +7,33 @@
 //
 
 import Foundation
+/*
+	func addNode (node_name: String, to this: String = "")
+				-> SKNode
+			{
+				printd(this)
+				if this == "" {
+					//-Check for errors
+					guard nil != self.childNodeWithName(node_name) else {
+						printd("-> addNode: failed to init \(node_name)")
+						return error_node!
+					}
+					
+					//-Initialize it (node = return())
+					printl("-> addNode \(node_name) success--make sure return as isn't nil!")
+					 node_list.insert(node_name)
+					  return (self.childNodeWithName(node_name)!)
+				}
+				//-Same as above only node.cnwn.cwn
+				else { guard nil != self.childNodeWithName(this)!.childNodeWithName(node_name)
+					else {printd("-> addNode: faileddd to init \(node_name)");return error_node!}
+					printl("-> addNode \(node_name) success--make sure return as isn't nil!")
+					node_list.insert(node_name);
+					return	(self.childNodeWithName(this)!.childNodeWithName(node_name)!)
 
+				}
+			}
+			*/
 struct ref {
 
 /**
