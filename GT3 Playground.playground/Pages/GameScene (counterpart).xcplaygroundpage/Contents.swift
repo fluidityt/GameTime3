@@ -1,6 +1,6 @@
 /**
 	TODO:
-	- build menu slider
+	-  implement menu
 	-	add other toons
 
 	-  fix label constraints
@@ -8,6 +8,8 @@
 	- check for safety at all cs locations
 	- figure out how to switch spawners
 		maybe a for loop
+	- put globes into each block call
+	
 	BUG:
 	vv (hotfix): cs not updating on form molecule (replay)
 	xx anims not working on ns / ps

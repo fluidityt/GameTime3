@@ -1,52 +1,29 @@
 
 //
 //  GameScene.swift
-//  g2
+//  GT3
 //
 //  Created by Dude Guy on 8/6/16.
 //  Copyright (c) 2016 Dude Guy. All rights reserved.
 
-
-// TODO: find class copy command
 
 
 import SpriteKit
 
 //<#MARK: - GameScene{}#>
 class GameScene: SKScene, UITextFieldDelegate {
-	
-	
-	//<#MARK: Inits#>
-	var
-		myLabel     	=	 SKLabelNode(
-		                      fontNamed: "Chalkduster"),
-		
-		prev_atom	 	:	 SKLabelNode?,
-		next_atom	 	:	 SKLabelNode?,
-		form_molecule  :   SKLabelNode?,
-		atom_bar 	   :	 SKLabelNode?,
-		menu_right     :   SKLabelNode?,
-		error_node     :   SKNode? = nil
-	
-	;
-	
-	var
-		textField2     :   UITextField!,
-		thisView	      :   SKView!
-	;
-	
-	// enums
-	enum vector { case
-		right, left
-	}
-	
-	
 	//<#MARK: - didMovetoView()#>
 	override func didMoveToView(view: SKView) {
-		//-Init nodes
+		
+		//-Super initials
+		current_steps += 1
+		total_steps   += 1
+		
 		initNodes: do {
+		
 			//-TODO: Deal with scope issue on .self
-			func addNode( node_name: String) -> SKNode
+		 	func addNode (node_name: String)
+				-> SKNode
 			{
 				//-Check for errors
 				guard nil != self.childNodeWithName(node_name) else {
@@ -66,9 +43,12 @@ class GameScene: SKScene, UITextFieldDelegate {
 			next_atom		= addNode("next_atom")		as? SKLabelNode
 			form_molecule	= addNode("form_molecule") as? SKLabelNode
 			atom_bar			= addNode("atom_bar")		as? SKLabelNode
-		}
+			
+		}; /* End initNodes */
 		
-		 makeLabel: do {
+		
+		makeLabel: do {
+			
 			myLabel.text			= "Hello, World!"
 			 myLabel.fontSize 	= 45
 			  myLabel.position
@@ -78,7 +58,9 @@ class GameScene: SKScene, UITextFieldDelegate {
 			    myLabel.name = "center label"
 			
 			self.addChild(myLabel)
-		}
+			
+		}; /* END makeLabel */
+		
 		/*
 		  makeTextField: do {
 			textField2
@@ -102,28 +84,38 @@ class GameScene: SKScene, UITextFieldDelegate {
 		// TODO: some logic to only have one green sprite at a time
 		// NOTE: Do I need to removeAllActions()?
 		// TODO: make these guys modular (not just akira)
+		
+		//-Utility:
+		func doAction(action: SKAction, on node: SKNode?){
+			node!.runAction(action)}
+		
+		//-Main touch processoereor
 		for touch in touches {	defer { total_steps = ts;	current_steps = cs	}
-			//-Inits
+			
 			var
 				TPOINT  = touch.locationInNode(self),
 				cs      = current_steps,
 				ts		  = total_steps
 			
-			tloc = TPOINT
+			// tloc = TPOINT
 			
 			//-Move player
 			doAction ( .moveTo(TPOINT, duration: 2), on: player )
 			
-			//-Get stuff then switch it
-			var test_node : String? = nodeAtPoint(TPOINT).name
+			//-Get stuff then switch it (label and do are formatting only)
+			switcher: do {
 			
-			guard test_node != nil else {
-				printd("found nil"); return
-			}
-			switch test_node! {
-			
-				// Toggle Color:
+				//-Prep switch statement
+				var test_node : String? = nodeAtPoint(TPOINT).name
+				guard test_node != nil else {
+					printd("found nil"); return
+				}
+				
+				//-Run switch statement
+				switch test_node! {
+				
 				case "Akira":
+				// Toggle Color:
 				
 					()////////////
 						akira.node! .color == GREEN
@@ -135,8 +127,8 @@ class GameScene: SKScene, UITextFieldDelegate {
 				
 				
 				case "prev_atom":
-					//-TODO: put safe act interface
-					//-Save any new actions before jumping back
+				//-TODO: put safe act interface
+				//-Save any new actions before jumping back
 				
 					cs -= 1
 					
@@ -146,8 +138,8 @@ class GameScene: SKScene, UITextFieldDelegate {
 
 
 				case "next_atom":
-					//-Start Next Atom
-					//--Don't progress next step if no new actions have been added
+				//-Start Next Atom
+				//--Don't progress next step if no new actions have been added
 				
 					cs += 1
 					
@@ -173,17 +165,18 @@ class GameScene: SKScene, UITextFieldDelegate {
 					
 			
 				
-				//-Play Stored Atoms
 				case "form_molecule", "atom_bar":
+				//-Play Stored Atoms
+					
 					//-TODO: fix this hotfix (it's a bug)
 					defer { cs = ts }
 					
-					printl("Replaying Atoms")
 					
 					//-Reset some stuff
-					akira.node!     .color      = .redColor()
-					akira.node!     .position   = akira.start_pos
-					myLabel         .text       = "replaying"
+					printl("Replaying Atoms")
+					 akira.node!     .color      = .redColor()
+					  akira.node!    .position   = akira.start_pos
+					   myLabel       .text       = "replaying"
 					
 					()/////
 						//-Ensure safety
@@ -198,15 +191,15 @@ class GameScene: SKScene, UITextFieldDelegate {
 					;/////
 				
 				
-				case "menu_right":
+				//case "menu_right":
 				
-					doAction(<#T##action: SKAction##SKAction#>, on: <#T##SKNode?#>)
+				//doAction(<#T##action: SKAction##SKAction#>, on: <#T##SKNode?#>)
 				
 				
 
 				default: /** if (clicked(empty_space)) */
-					// Move Akira / Update actions
-					// TODO: Make clicked empty space func (for checks or bit mask states)
+				// Move Akira / Update actions
+				// TODO: Make clicked empty space func (for checks or bit mask states)
 				
 					()//////
 						GREEN == akira.node!.color
@@ -222,74 +215,21 @@ class GameScene: SKScene, UITextFieldDelegate {
 					// FIXME: this needs to execute after he's not moving
 					// if sc == 1 { akira.start_pos = akirapos }
 					
-			}
-			/// handleClicks />
-		}
-		//for
-	}
-	///touchesBegan()/>
+				} // switch />
+			} // do />
+		} // for />
+	} // touchesBegan() />
 	
 	
 	
-		
-		//
-		override func update(currentTime: CFTimeInterval) {
-			atom_bar!.text = "Atom: \(current_steps) / \(total_steps)"
-		};///update()/>
-		
-		
-		
-		
-		
-		//<#MARK: - RANDOM FUNCS#>
-		func moveSprite( name :SKSpriteNode? = player, to_the :vector)
-			-> SKAction
-		{
-			let action:SKAction = {
-				switch(to_the) {
-					
-				case .left:
-					return SKAction.moveBy(
-						CGVector(dx: -50, dy: 0), duration: 0.25)
-					
-				case .right:
-					return SKAction.moveBy(
-						CGVector(dx:  50, dy: 0), duration: 0.25)
-					
-				}; // switch()/>
-			}()
-			
-			do { name!.runAction(action) }
-			return action
-			
-		}; // moveSprite()/>
-		
-		func moveSprite( name :SKSpriteNode? = player, to :CGPoint)
-			-> SKAction
-		{
-			let action = SKAction.moveTo(to, duration: 0.5)
-			do { name!.runAction(action) }
-			
-			return action
-		}; // moveSprite()/>
-		
-		func updateCamera()
-		{
-			let ploc = player!.position
-			let act  = SKAction.moveTo(ploc, duration: 0.0)
-			
-			cam!.runAction(act)
-		}; // updateCamera()/>
-		
-		func clicked(node: SKNode?) -> Bool
-		{
-			if(node!.frame.contains(tloc!)){
-				return true
-			}
-			else {
-				return false
-			}
-		}; // clicked()/>
-	};//////// GameSprite/>
+	//-Udatess
+	override func update(currentTime: CFTimeInterval) {
+		atom_bar!.text = "Atom: \(current_steps) / \(total_steps)"
+	};///update()/>
+	
+	
+	
+
+};//////// GameSprite/>
 
 

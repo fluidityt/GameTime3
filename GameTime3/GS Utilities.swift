@@ -23,10 +23,7 @@
     }
 
 
-public func doAction(action: SKAction, on node: SKNode?)
-{
-    node!.runAction(action)
-}
+
 
 
 
@@ -110,3 +107,55 @@ public func doAction(action: SKAction, on node: SKNode?)
             return index >= 0 && index < count ? self[index] : nil
         }
     }
+
+	
+	
+	//<#MARK: - RANDOM FUNCS#>
+	func moveSprite( name :SKSpriteNode? = player, to_the :vector)
+		-> SKAction
+	{
+		let action:SKAction = {
+			switch(to_the) {
+				
+			case .left:
+				return SKAction.moveBy(
+					CGVector(dx: -50, dy: 0), duration: 0.25)
+				
+			case .right:
+				return SKAction.moveBy(
+					CGVector(dx:  50, dy: 0), duration: 0.25)
+				
+			}; // switch()/>
+		}()
+		
+		do { name!.runAction(action) }
+		return action
+		
+	}; // moveSprite()/>
+	
+	func moveSprite( name :SKSpriteNode? = player, to :CGPoint)
+		-> SKAction
+	{
+		let action = SKAction.moveTo(to, duration: 0.5)
+		do { name!.runAction(action) }
+		
+		return action
+	}; // moveSprite()/>
+	
+	func updateCamera()
+	{
+		let ploc = player!.position
+		let act  = SKAction.moveTo(ploc, duration: 0.0)
+		
+		cam!.runAction(act)
+	}; // updateCamera()/>
+	
+	func clicked(node: SKNode?) -> Bool
+	{
+		if(node!.frame.contains(tloc!)){
+			return true
+		}
+		else {
+			return false
+		}
+	}; // clicked()/>

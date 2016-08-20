@@ -8,45 +8,6 @@
 import SpriteKit
 import Foundation
 
-//-AniGlobes
-	let A_MOVE_LEFT = SKAction.moveBy(CGVectorMake(-405.0, 0.0), duration: 1.0)
-
-	let A_MOVE_RIGHT = SKAction.moveBy(CGVectorMake(405.0, 0.0), duration: 1.0)
-
-
-
-	var node_list = Set<String>()
-
-//-Globes used with StoryToon:
-    var
-			akira				 = StoryToon()			,
-			character_list  : [StoryToon] = []	,
-
-			player      :SKSpriteNode?				,
-			Marc        :SKSpriteNode?				,
-			Akira       :SKSpriteNode?				,
-
-			cam         :SKCameraNode?				,
-			tloc        :CGPoint?					,
-	
-			///gets added with didSet, and checked (thenreset) at end of TB
-			new_actions = false			,
-			total_steps				= 0				,
-			current_steps			= 0
-
-    ;
-
-    let
-        GREEN       = UIColor.greenColor()  ,
-        RED         = UIColor.redColor()    ,
-        BLUE        = UIColor.blueColor()   ,
-        DEF_ACTION  = SKAction
-								.colorizeWithColor(
-								  color: BLUE,
-								  colorBlendFactor: 1.0,
-								  duration: 1.0)
-    ;
-
 
 /** Story Toon is fun */
 struct StoryToon {
@@ -54,9 +15,13 @@ struct StoryToon {
 
 	///stores all actions. make sure it isn't read or wrote to empty
 	var
-		act_list        : [SKAction]      = [],
-		start_pos 		= CGPoint(x: 0,y: 0)		,
-		node				: SKSpriteNode?			//,
+		act_list			: [SKAction]					= [],
+	
+		node				: SKSpriteNode?				,
+	
+		start_pos		= CGPoint(x: 0,y: 0)			//
+	
+	
 	;
 
 
@@ -64,9 +29,6 @@ struct StoryToon {
 		
 		//-Gives index at 0 a default
 		act_list.append(DEF_ACTION)
-		
-		current_steps += 1
-		total_steps  += 1
 		
 		act_list.append (SKAction.colorizeWithColor(
 											.yellowColor(),
