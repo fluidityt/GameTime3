@@ -1,33 +1,42 @@
 /**
-	TODO:
-	-	add other toons
-	-	array for new objects
-	- clone a node
+TODO:--------------------------------------
 
-	LATER:
-	- scale node smaller the closer to y=0 (3d effect)
+- fix movement newnode (strings split)
+- add other toons to atombar
 
-	- how to unlock all nodes
-	- fix label constraints
-	- figure out start positions
-	- check for safety at all cs locations
-	- figure out how to switch spawners
-		maybe a for loop
-	- put globes into each block call
+LATER: -----------------------------------
 
-	BUG:
-	- Top  bar getting pushed around
-		vv (hotfix): cs not updating on form molecule (replay)
+- zpositions still don't make sense..
+- actions from file into code
+- clone a node
+- how to unlock all nodes (editor)
+
+- figure out start positions (mid atom)
+- scale node smaller the closer to y=0 (3d effect)
+
+SOMEDAY:-----------------------------------
+
+- check for safety at all cs locations
+- put globes into each block call
+- put init confirms on all ur class
+
+BUG: --------------------------------------
+
+- fix label constraints on land/phone
+vv (hotfix): cs not updating on form molecule (replay)
 
 
 */
 				func Todoing(){}
 /**
 	REMEMBER:
+	- remember Class.func may just be func
+	- ALWAYS CHECK FOR NIL
+	- ALWAYS CHECK NAMES / SK TYPES
+	
+	OTHER STUFF:
 	- checkout plugins and autoindent
 	- separate fonts for editors
-	- put init confirms on all ur class
-	- remember Class.func may just be func
 */
 				func remembering(){}
 
@@ -38,7 +47,3 @@
 
 import Foundation
 import SpriteKit
-
-var x = 4
-print(x)
-

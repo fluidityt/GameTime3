@@ -6,10 +6,7 @@
 //  Created by Dude Guy on 8/6/16.
 //  Copyright (c) 2016 Dude Guy. All rights reserved.
 
-var movem = false
-var dragger : SKNode?
 
-var newnode : [SKNode?] = []
 
 import SpriteKit
 
@@ -191,11 +188,22 @@ class GameScene: SKScene, UITextFieldDelegate {
 			  guard (test_node != nil)
 			    else { printd("found nil"); return }
 				
+				//-Shortens hassle for newnode indexed clicking
+				if (test_node!.containsString("love")) {
+					printl("in love")
+					 closeMenuRight()
+					  movem = true
+					   let z = newnode.endIndex - 1
+					    dragger = newnode[z]!
+				}
 				
 			  //-Switch the touchpoint:
+			  switch_for_players: do { }
+			  switch_for_topbar:  do { }
+			  switch_for_menus:   do { }
 			  switch test_node! {
 				
-				
+			
 				case "Akira":
 				// Toggle Color:
 				
@@ -303,30 +311,22 @@ class GameScene: SKScene, UITextFieldDelegate {
 				
 				
 				
-				case "love\(newnode.endIndex - 1)":
-				//-Move only the latest newnode
-				
-					printl("in love")
-					 closeMenuRight()
-					  movem = true
-					   let z = newnode.endIndex - 1
-					    dragger = newnode[z]!
 				
 				
 				case "Marc":
 				//-Repo for new objects
 				
 					newnode.append(SKSpriteNode(imageNamed: "Spaceship"))
-					
+					printd(newnode.description)
 				  //-Z is the index for newnode
 				  let z = newnode		.endIndex		- 1
-					
+					printd(z)
 					newnode[z]?			.name				= "love\(z)"
 					 newnode[z]?		.zPosition		= 10
 				   	newnode[z]?		.position		= TPOINT
 						 newnode[z]?	.setScale		(0.5)
 							self			.addChild		(newnode[z]!)
-				
+					printd("new love should be found")
 					//Finish up
 					closeMenuRight()
 					 movem = true
@@ -349,7 +349,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 						akira.act_list[cs] = moveSprite(akira.node!, to: TPOINT)
 						 new_actions = true															      }()
 					:
-						printl("akira didn't move")
+						printl("default case move")
 				
 				
 

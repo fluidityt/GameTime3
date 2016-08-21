@@ -14,12 +14,12 @@
 		C16EA6FD1D645C00008B7CBA /* RefRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16EA6FC1D645C00008B7CBA /* RefRepo.swift */; };
 		C1D6D2BA1D66F8D2004DB5D9 /* MyActions.sks in Resources */ = {isa = PBXBuildFile; fileRef = C1D6D2B91D66F8D2004DB5D9 /* MyActions.sks */; };
 		C1DC12B41D63F96500C17ADD /* GS Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DC12B31D63F96500C17ADD /* GS Repo.swift */; };
-		C1DC12B71D63F97200C17ADD /* GS Globaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DC12B51D63F97200C17ADD /* GS Globaling.swift */; };
+		C1DC12B71D63F97200C17ADD /* Globaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DC12B51D63F97200C17ADD /* Globaling.swift */; };
 		C1DC12B81D63F97200C17ADD /* GS Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DC12B61D63F97200C17ADD /* GS Utilities.swift */; };
 		C1DC12BD1D63F99100C17ADD /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C1DC12B91D63F99100C17ADD /* GameScene.sks */; };
 		C1DC12BE1D63F99100C17ADD /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DC12BA1D63F99100C17ADD /* GameScene.swift */; };
 		C1DC12BF1D63F99100C17ADD /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DC12BB1D63F99100C17ADD /* GameViewController.swift */; };
-		C1DC12C01D63F99100C17ADD /* {} StoryToon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DC12BC1D63F99100C17ADD /* {} StoryToon.swift */; };
+		C1DC12C01D63F99100C17ADD /* StoryToon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DC12BC1D63F99100C17ADD /* StoryToon.swift */; };
 		C1DC12C21D6414AF00C17ADD /* GS Pubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DC12C11D6414AF00C17ADD /* GS Pubs.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,12 +34,12 @@
 		C16EA6FC1D645C00008B7CBA /* RefRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefRepo.swift; sourceTree = "<group>"; };
 		C1D6D2B91D66F8D2004DB5D9 /* MyActions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = MyActions.sks; path = ../MyActions.sks; sourceTree = "<group>"; };
 		C1DC12B31D63F96500C17ADD /* GS Repo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GS Repo.swift"; sourceTree = "<group>"; };
-		C1DC12B51D63F97200C17ADD /* GS Globaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GS Globaling.swift"; sourceTree = "<group>"; };
+		C1DC12B51D63F97200C17ADD /* Globaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Globaling.swift; path = GameTime3/Globaling.swift; sourceTree = "<group>"; };
 		C1DC12B61D63F97200C17ADD /* GS Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GS Utilities.swift"; sourceTree = "<group>"; };
 		C1DC12B91D63F99100C17ADD /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = GameTime3/GameScene.sks; sourceTree = "<group>"; };
 		C1DC12BA1D63F99100C17ADD /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GameScene.swift; path = GameTime3/GameScene.swift; sourceTree = "<group>"; };
 		C1DC12BB1D63F99100C17ADD /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		C1DC12BC1D63F99100C17ADD /* {} StoryToon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "{} StoryToon.swift"; path = "GameTime3/{} StoryToon.swift"; sourceTree = "<group>"; };
+		C1DC12BC1D63F99100C17ADD /* StoryToon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryToon.swift; path = GameTime3/StoryToon.swift; sourceTree = "<group>"; };
 		C1DC12C11D6414AF00C17ADD /* GS Pubs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GS Pubs.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -59,7 +59,8 @@
 			children = (
 				C1DC12B91D63F99100C17ADD /* GameScene.sks */,
 				C1DC12BA1D63F99100C17ADD /* GameScene.swift */,
-				C1DC12BC1D63F99100C17ADD /* {} StoryToon.swift */,
+				C1DC12BC1D63F99100C17ADD /* StoryToon.swift */,
+				C1DC12B51D63F97200C17ADD /* Globaling.swift */,
 				C12BBF4A1D63F60E00A64C48 /* GT3 Playground.playground */,
 				C12BBF481D63F59600A64C48 /* Aux */,
 				C12BBF491D63F5AE00A64C48 /* Junk */,
@@ -87,9 +88,10 @@
 		C12BBF481D63F59600A64C48 /* Aux */ = {
 			isa = PBXGroup;
 			children = (
-				C1DC12B51D63F97200C17ADD /* GS Globaling.swift */,
 				C1DC12B61D63F97200C17ADD /* GS Utilities.swift */,
 				C16EA6FC1D645C00008B7CBA /* RefRepo.swift */,
+				C12BBF3D1D63F4BB00A64C48 /* Assets.xcassets */,
+				C1D6D2B91D66F8D2004DB5D9 /* MyActions.sks */,
 			);
 			name = Aux;
 			path = GameTime3;
@@ -108,12 +110,10 @@
 		C1DC12C31D64159300C17ADD /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				C1D6D2B91D66F8D2004DB5D9 /* MyActions.sks */,
 				C1DC12BB1D63F99100C17ADD /* GameViewController.swift */,
 				C12BBF321D63F4BB00A64C48 /* AppDelegate.swift */,
 				C12BBF3A1D63F4BB00A64C48 /* Main.storyboard */,
 				C12BBF3F1D63F4BB00A64C48 /* LaunchScreen.storyboard */,
-				C12BBF3D1D63F4BB00A64C48 /* Assets.xcassets */,
 				C12BBF421D63F4BB00A64C48 /* Info.plist */,
 				C12BBF301D63F4BB00A64C48 /* Products */,
 			);
@@ -197,11 +197,11 @@
 				C1DC12BE1D63F99100C17ADD /* GameScene.swift in Sources */,
 				C1DC12C21D6414AF00C17ADD /* GS Pubs.swift in Sources */,
 				C12BBF331D63F4BB00A64C48 /* AppDelegate.swift in Sources */,
-				C1DC12B71D63F97200C17ADD /* GS Globaling.swift in Sources */,
+				C1DC12B71D63F97200C17ADD /* Globaling.swift in Sources */,
 				C1DC12B81D63F97200C17ADD /* GS Utilities.swift in Sources */,
 				C1DC12BF1D63F99100C17ADD /* GameViewController.swift in Sources */,
 				C1DC12B41D63F96500C17ADD /* GS Repo.swift in Sources */,
-				C1DC12C01D63F99100C17ADD /* {} StoryToon.swift in Sources */,
+				C1DC12C01D63F99100C17ADD /* StoryToon.swift in Sources */,
 				C16EA6FD1D645C00008B7CBA /* RefRepo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,7 +13,10 @@
 import Foundation
 import SpriteKit
 
+var movem = false
+var dragger : SKNode?
 
+var newnode : [SKNode?] = []
 
 var menu_right_open = false
 /////////
