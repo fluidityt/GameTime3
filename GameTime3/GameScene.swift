@@ -9,6 +9,8 @@
 var movem = false
 var dragger : SKNode?
 
+var newnode : [SKNode?] = []
+
 import SpriteKit
 
 
@@ -166,7 +168,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 			
 			
 			//-Move player
-			doAction (player, will: .moveTo(TPOINT, duration: 2))
+//			doAction (player, will: .moveTo(TPOINT, duration: 2))
 			
 			
 			
@@ -176,6 +178,14 @@ class GameScene: SKScene, UITextFieldDelegate {
 			
 			switcher: do {
 			
+			 //-Utility
+			 func closeMenuRight() {
+					if (menu_right_open == true) {
+						menu_right_open = false
+						menu_right!.runAction(A_MOVE_RIGHT)
+					}
+					}
+				
 			  //-Prep switch statement
 			  var test_node: String? = nodeAtPoint(TPOINT).name;
 			  guard (test_node != nil)
@@ -189,13 +199,13 @@ class GameScene: SKScene, UITextFieldDelegate {
 				case "Akira":
 				// Toggle Color:
 				
-					()////////////
+					//----------------------------
 						akira.node! .color == GREEN
 					?
 						akira.node! .color =  RED
 					:										(
-						akira.node!.color =  GREEN	)
-					;/////////////
+						akira.node!.color  =  GREEN)
+					//-----------------------------
 				
 				
 				case "prev_atom":
@@ -218,23 +228,22 @@ class GameScene: SKScene, UITextFieldDelegate {
 				
 					cs += 1
 					
-					()///////////////////////////////////////
+					//-----------------------------------------------
 						ts < cs
-					?																	{
-							if (new_actions == true) {
-								//-increase ts on new action
-								ts += 1
-								//-Def action for no bad unwraps
-								akira.act_list.append(DEF_ACTION)
-							}
-							else {
-								//-dont let cs go past ts
-								cs -= 1
-							}																}()
+					?																		{
+						if new_actions == true {
+							
+							ts += 1 /* increase ts on new action */
+							
+							//-Def action for no bad unwraps
+							akira.act_list.append(DEF_ACTION)
+							
+						} else { cs -= 1} /* don't go past ts */
+																					}()
 					:
-						//-run the anim
+						//-Run the anim
 						doAction(akira.node, will: akira.act_list[cs])
-					;//////////////////////////////////////
+					//----------------------------------------------------
 					
 					new_actions = false
 					
@@ -255,17 +264,17 @@ class GameScene: SKScene, UITextFieldDelegate {
 					  akira.node!    .position   = akira.start_pos
 					   myLabel       .text       = "replaying"
 					
-					()/////
+					
 						//-Ensure safety
 						(akira.act_list[safe: cs]) != nil
 					?
-						//-Set the sequence then play it
-						{let listed  = SKAction.sequence    (akira.act_list)
-						doAction(akira.node, will: listed) }()
+						/*-Set the sequence then play it*/												{
+						let listed  = SKAction.sequence (akira.act_list)
+						 doAction(akira.node, will: listed)												}()
 					:
 						//-Binding didn't occur..
 						printd("akira failed at running an action")
-					;/////
+				
 				
 //-------------
 // Menu Right
@@ -284,48 +293,70 @@ class GameScene: SKScene, UITextFieldDelegate {
 				
 				
 				case "ship":
-					movem = true
-					ship?.removeFromParent()
-					self.addChild(ship!)
-					
-					dragger = ship
-					
-					if (menu_right_open == true) {
-						menu_right_open = false
-						menu_right!.runAction(A_MOVE_RIGHT)
-					}
+				// Do stuff
+				
+					closeMenuRight()
+					 movem = true
+					  ship?.removeFromParent()
+						self.addChild(ship!)
+						 dragger = ship
+				
+				
+				
+				case "love\(newnode.endIndex - 1)":
+				//-Move only the latest newnode
+				
+					printl("in love")
+					 closeMenuRight()
+					  movem = true
+					   let z = newnode.endIndex - 1
+					    dragger = newnode[z]!
+				
 				
 				case "Marc":
-				printd("j")
-					/*
-						1. make a new node
-						2. copy traits from Marc
-						3. Hide Marc
-						4. dragger = newMarc
-				   */
+				//-Repo for new objects
+				
+					newnode.append(SKSpriteNode(imageNamed: "Spaceship"))
+					
+				  //-Z is the index for newnode
+				  let z = newnode		.endIndex		- 1
+					
+					newnode[z]?			.name				= "love\(z)"
+					 newnode[z]?		.zPosition		= 10
+				   	newnode[z]?		.position		= TPOINT
+						 newnode[z]?	.setScale		(0.5)
+							self			.addChild		(newnode[z]!)
+				
+					//Finish up
+					closeMenuRight()
+					 movem = true
+					  dragger = newnode[z]!
+
 
 //-------------
 // Empty Space
 //-------------
 				
-				default: /** if (clicked(empty_space)) */
+				default:
 				// Move Akira / Update actions
 				// TODO: Make clicked empty space func (for checks or bit mask states)
+				// FIXME: this needs to execute after he's not moving
+				// --> if sc == 1 { akira.start_pos = akirapos }
 				
-					()//////
 						GREEN == akira.node!.color
-					&&
-						nil != akira.act_list[safe: cs]
-					?												{
+						 && nil != akira.act_list[safe: cs]
+					?												                                      {
 						akira.act_list[cs] = moveSprite(akira.node!, to: TPOINT)
-						new_actions = true					}()
+						 new_actions = true															      }()
 					:
 						printl("akira didn't move")
-					;///////
-					
-					// FIXME: this needs to execute after he's not moving
-					// if sc == 1 { akira.start_pos = akirapos }
-					
+				
+				
+
+				
+//-------------
+// End of Stuff
+//-------------
 				} // switch />
 			} // do />
 		} // for />
