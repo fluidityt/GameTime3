@@ -3,6 +3,9 @@ TODO:--------------------------------------
 
 - fix movement newnode (strings split)
 - add other toons to atombar
+- rename testnode
+- expand ___
+- make a verbose button
 
 LATER: -----------------------------------
 
@@ -10,9 +13,11 @@ LATER: -----------------------------------
 - actions from file into code
 - clone a node
 - how to unlock all nodes (editor)
+- less annoying way for text than labels (link)
 
 - figure out start positions (mid atom)
 - scale node smaller the closer to y=0 (3d effect)
+- Deal with scope issue on .self
 
 SOMEDAY:-----------------------------------
 
@@ -20,7 +25,15 @@ SOMEDAY:-----------------------------------
 - put globes into each block call
 - put init confirms on all ur class
 
-BUG: --------------------------------------
+--BUG:--------------------------------------
+- nodes get into top bar
+- first form molecule fucked them
+- dynamic mats can go off camers
+- label still annoying
+- ship almost drags on border
+
+- marc label still fucking around (dont hotfix)
+- next atom button fucked
 
 - fix label constraints on land/phone
 vv (hotfix): cs not updating on form molecule (replay)

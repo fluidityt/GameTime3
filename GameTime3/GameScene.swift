@@ -30,7 +30,6 @@ class GameScene: SKScene, UITextFieldDelegate {
 			// Utility Function
 			//------------------
 			
-			//-TODO: Deal with scope issue on .self
 			//-TODO: Check for nil AFTER addNode returns
 			///-Shortcut for self.cNWN()
 			func addNode (node_name: String)
@@ -38,13 +37,13 @@ class GameScene: SKScene, UITextFieldDelegate {
 			{
 				//-Check for errors
 				guard nil != self.childNodeWithName(node_name) else {
-					printd("-> addNode: failed to init \(node_name)" +
+					printe("-> addNode: failed to init \(node_name)" +
 						"check spelling-- check node type-- check nil")
 					return error_node!
 				}
 				
 				//-Initialize it (node = return())
-				printl("-> addNode \(node_name) success--make sure return as isn't nil!")
+				printv("-> addNode \(node_name) success--")
 				 node_list.insert(node_name)
 				  return (self.childNodeWithName(node_name)!)
 				
@@ -52,13 +51,13 @@ class GameScene: SKScene, UITextFieldDelegate {
 			
 			///-Shortcut for self.cNWN().cNWN()
 			func addNode2 (node_name: String, to this: String) -> SKNode {
-				print(" -> addNode2: attempting \(node_name)")
+				printv(" -> addNode2: attempting \(node_name) ")
 				 return self.childNodeWithName(this)!.childNodeWithName(node_name)!
 			}
 			
 			///-Shortcut for self.cNWN().cNWM().cNWN()
 			func addNode3 (node_name: String, to this: String, from that: String) -> SKNode {
-				printl(" -> addNode3: attempting \(node_name)")
+				printv(" -> addNode3: attempting \(node_name)")
 				 return	self.childNodeWithName(that)!
 									.childNodeWithName(this)!
 										.childNodeWithName(node_name)!}
@@ -90,8 +89,8 @@ class GameScene: SKScene, UITextFieldDelegate {
 			//-menu_right
 			Marc				= addNode2("Marc", to: "menu_right")			as? SKSN
 			ship				= addNode2("ship", to: "menu_right")			as? SKSN
-			
-			printl("ALL FUCKING NODES INITIALIZED OMG GO TO BED")
+			marc_label		= addNode3("marc_label", to: "Marc", from: "menu_right") as? SKLN
+			printv("ALL NODES INITIALIZED")
 			
 			
 			func nilCheck() {} // Make sure lol..
@@ -114,22 +113,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 			self.addChild(myLabel)
 			
 		}; /* END makeLabel */
-		
-		/*
-		  makeTextField: do {
-			textField2
-				= UITextField(
-					frame: CGRectMake(0, 0, frame.width, 100))
-			
-				textField2.delegate = self
-				 textField2.adjustsFontSizeToFitWidth = true
-				  textField2.backgroundColor = UIColor.blueColor()
-				
-			view.addSubview(textField2)
-			 self.view!.addSubview(textField2)
-		}
-		*/
-	};///didMoveToView()/>
+			};///didMoveToView()/>
 	
 //-----------------------
 //<#MARK: - touchesBegan()#>
@@ -169,9 +153,9 @@ class GameScene: SKScene, UITextFieldDelegate {
  // Init \\
 //--------\\
 			var
-				TPOINT  = touch.locationInNode(self),
-				cs      = current_steps,
-				ts		  = total_steps
+		   	TPOINT  = touch.locationInNode(self),
+			   cs      = current_steps,
+			   ts		  = total_steps
 			
 			//-Move player
 			doAction (player, will: .moveTo(TPOINT, duration: 2))
@@ -179,20 +163,23 @@ class GameScene: SKScene, UITextFieldDelegate {
 			//-No dragging
 			movem = false
 			
-			  //-Prep switch statement
-			  var test_node: String? = nodeAtPoint(TPOINT).name;
-			  guard (test_node != nil)
-			    else { printd("found nil"); return }
+			//-Prep switch statement
+			var test_node: String? = nodeAtPoint(TPOINT).name;
+			
+			guard (test_node != nil)
+				else { printd("found nil");
+				 return
+			}
+			
+			//-Shortens hassle for newnode indexed clicking
+			if (test_node!.containsString("love")) {
 				
-				//-Shortens hassle for newnode indexed clicking
-				if (test_node!.containsString("love")) {
-					printl("in love")
-					 closeMenuRight()
-					  movem = true
-					   let z = newnode.endIndex - 1
-					    dragger = newnode[z]!
-				}
-				
+				closeMenuRight()
+				 movem = true
+				  let z = newnode.endIndex - 1
+				   dragger = newnode[z]!
+			}
+			
 			//-Switch the touchpoint:
 			switcher: do {
 
@@ -202,6 +189,14 @@ class GameScene: SKScene, UITextFieldDelegate {
 //------------\\
 				switch test_node! {
 			
+				case "plaar":
+				// Not much for now
+				
+					verbose = true
+					printv("toggled on")
+					break switcher
+				
+					
 				case "Akira":
 				// Toggle Color:
 				
@@ -212,6 +207,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 						akira.node! .color  =  GREEN)
 																									break switcher
 
+				
 				
 				default:
 				// Move Akira / Update actions
@@ -225,7 +221,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 						akira.act_list[cs] = moveSprite(akira.node!, to: TPOINT)
 						new_actions = true															      }()
 					:
-						printl("default case move")
+						printv("-> switcher: found no nodes (or clicked one is not in case)")
 				
 				}
 				
@@ -244,10 +240,11 @@ class GameScene: SKScene, UITextFieldDelegate {
 					cs == 0	?	cs += 1	:	doAction(akira.node, will: akira.act_list[cs])
 					
 					new_actions = false
-				}																				();break switcher
+				}																				(); break switcher
 
 
 				case "next_atom": {
+				printd("clicked next atom")
 				//-Start Next Atom
 				//--Don't progress next step if no new actions have been added
 				
@@ -299,12 +296,12 @@ class GameScene: SKScene, UITextFieldDelegate {
 						 doAction(akira.node, will: listed)												}()
 					:
 						//-Binding didn't occur..
-						printd("akira failed at running an action")
+						printe(" -> form_molecule: former failed at running action")
 				}																				();break switcher
 				
 				
 				default:
-					print("no topbar")
+					printv(" -> switcher: no topbar touches")
 
 				}
 	
@@ -332,15 +329,21 @@ class GameScene: SKScene, UITextFieldDelegate {
 					closeMenuRight()
 					 movem = true
 					  ship?.removeFromParent()
-						self.addChild(ship!)
-						 dragger = ship
+					   self.addChild(ship!)
+						  dragger = ship
+				Test(block: {
+					printt("shp touched in test")
+					ship?.zPosition = 0
+					})
 				}																				(); break switcher
 				
-
+				case "marc_label":
+					printd("clicked label")
+					break switcher
+					
 				case "Marc": {
 				//-Repo for new objects
 				
-					
 					//-Z is the index for newnode
 					newnode.append(SKSpriteNode(imageNamed: "Spaceship"))
 					let z = newnode.endIndex - 1;	var __=SKNode()
@@ -348,14 +351,13 @@ class GameScene: SKScene, UITextFieldDelegate {
 					/*-Modify it :D */
 					__=newnode[z]!
 							__			.name			= "love\(z)"
-							__			.zPosition	= 10
+							__			.zPosition	= 1
 				   		__			.position	= TPOINT
 							__			.setScale	(0.5)
 					
 					//-Add it
 					self			.addChild		(newnode[z]!)
-					 printd("new love should be found")
-				
+					
 					//Finish up
 					closeMenuRight()
 					 movem = true
@@ -365,11 +367,11 @@ class GameScene: SKScene, UITextFieldDelegate {
 
 
 				default:
-					print("no menu")
+					printv(" -> switcher: no menu touched")
 				}
 
 				// No matches from switch
-				printd("-> switcher: Found no matches!")
+				printe("-> switcher: Found no matches!\n")
 
 			} // switcher />
 		} // for />
@@ -391,7 +393,18 @@ class GameScene: SKScene, UITextFieldDelegate {
 		}
 	}
 	
-	
+//--------------
+// Touches Ended
+//--------------
+	override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+		
+		//-No more dragging
+		movem = false
+}
+
+//--------------
+// Update Scene
+//--------------
 	//-Udatess
 	override func update(currentTime: CFTimeInterval) {
 		//-TODO: Add an if statement to reduce resources

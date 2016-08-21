@@ -27,10 +27,7 @@ struct StoryToon {
 		
 		//-Gives index at 0 a default
 		act_list.append(DEF_ACTION)
-		
-		current_steps += 1
-		total_steps  += 1
-		
+ 		
 		act_list.append (SKAction.colorizeWithColor(
 											.yellowColor(),
 											colorBlendFactor: 1.0,

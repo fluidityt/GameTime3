@@ -10,7 +10,7 @@
     import Foundation
     import SpriteKit
 	 
-			
+	
     extension SKAction {
          public class func colorizeWithColor(color color: UIColor, colorBlendFactor: CGFloat, duration sec: NSTimeInterval) -> SKAction
          {
@@ -41,11 +41,14 @@
 //<#MARK: - MWINS#>:
     public func printd<t>(s: t) { print("DEBUG: \(s)") }
     public func printl<t>(s: t) { print("LOG: \(s)")   }
-
-
+    public func printe<t>(s: t) { print("ERRAR: \(s)")   }
+    public func printv<t>(s: t) { if verbose == true {print("VERB: \(s)")   }}
+    public func printt<t>(s: t) { print("TEST: \(s)")   }
+	
     public func printd<t, z>(name:z,_ s: t) { print("DEBUG: <\(name)> -> \(s)") }
     public func printl<t, z>(name:z,_ s: t) { print("LOG: <\(name)> -> \(s)")   }
-
+    public func printe<t, z>(name:z,_ s: t) { print("ERRAR: <\(name)> -> \(s)")   }
+	
 //<#MARK: - MATH:#>
     /** for visibility on lhs (many things already are on rhs
     and because swift 3 is going to suck*/
@@ -71,15 +74,16 @@
     
      
     */
-    public struct This_block {
+    public struct Test {
         public enum debugged {
             case off
         }
-        
-        public init(_ description:String ,_ code: ())		{	}
-        
-        public init(_ kay:debugged, _ description:String ,_ code: ()->())		{}
-        
+		
+        public init(_ kay:debugged,_ code: ()->())		{}
+		
+		  public init(block: ()->()){
+			block()
+		  }
         
     }
 

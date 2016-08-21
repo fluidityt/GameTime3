@@ -43,5 +43,31 @@ struct ref {
   static  let  arrays = 0
     
 }
+/*
+
+		/*
+		  makeTextField: do {
+			textField2
+				= UITextField(
+					frame: CGRectMake(0, 0, frame.width, 100))
+			
+				textField2.delegate = self
+				 textField2.adjustsFontSizeToFitWidth = true
+				  textField2.backgroundColor = UIColor.blueColor()
+				
+			view.addSubview(textField2)
+			 self.view!.addSubview(textField2)
+		}
+		*/
 
 // ref.arrays
+
+//_=Test_block(.off, " moves plaar to touched spot", {
+	//	let loc		= touch.locationInNode(self)
+	//	let action	= SKAction.moveTo(loc, duration: 0.5)
+	//	player!.runAction(action)
+	
+//);
+
+
+*/

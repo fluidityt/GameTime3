@@ -12,13 +12,20 @@
 
 import Foundation
 import SpriteKit
+var verbose = false
+	
+var
+	new_actions				= false,
+	total_steps				= 0,
+	current_steps			= 0
+
+var menu_right_open = false
 
 var movem = false
 var dragger : SKNode?
-
 var newnode : [SKNode?] = []
 
-var menu_right_open = false
+
 /////////
 //-Nodes
 ///
@@ -31,6 +38,7 @@ var
 	bkgg				:  SKSpriteNode?,
 	top_bar			:	SKSpriteNode?,
 
+	marc_label		:	SKLabelNode?,
 	atom_bar 	   :	SKLabelNode?,
 	prev_atom	 	:	SKLabelNode?,
 	next_atom	 	:	SKLabelNode?,
@@ -58,12 +66,9 @@ let A_MOVE_RIGHT = SKAction.moveBy(CGVectorMake(405.0, 0.0), duration: 0.25)
 			akira				 = StoryToon()			,
 			character_list  : [StoryToon] = []	,
 			cam         :SKCameraNode?				,
-			tloc        :CGPoint?					,
+			tloc        :CGPoint?
 	
 			///gets added with didSet, and checked (thenreset) at end of TB
-			new_actions = false			,
-			total_steps				= 0				,
-			current_steps			= 0
 
     ;
 
