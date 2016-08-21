@@ -13,7 +13,7 @@
 import Foundation
 import SpriteKit
 var verbose = false
-	
+
 var
 	new_actions				= false,
 	total_steps				= 0,
@@ -54,9 +54,9 @@ var node_list = Set<String>()
 ////////////
 //-AniGlobes
 ///
-let A_MOVE_LEFT = SKAction.moveBy(CGVectorMake(-405.0, 0.0), duration: 0.25)
+let A_MOVE_LEFT = SKAction.moveBy(CGVectorMake((-613+154), 0.0), duration: 0.25)
 
-let A_MOVE_RIGHT = SKAction.moveBy(CGVectorMake(405.0, 0.0), duration: 0.25)
+let A_MOVE_RIGHT = SKAction.moveBy(CGVectorMake((613-154), 0.0), duration: 0.25)
 
 
 

@@ -87,6 +87,12 @@
         
     }
 
+   public struct Hotfix {
+		
+		  public init(_ block: ()->()){
+			block()
+		  }
+	}
 //<#MARK: - SK:#>
     //public func addNode(){}
     /*

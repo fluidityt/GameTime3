@@ -19,7 +19,8 @@ struct StoryToon {
 	
 		node				: SKSpriteNode?				,
 	
-		start_pos		= CGPoint(x: 0,y: 0)			
+		start_pos		= CGPoint(x: 0,y: 0),
+		prev_pos			= CGPoint(x: 0,y: 0)
 	;
 
 
