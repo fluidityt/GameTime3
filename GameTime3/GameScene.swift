@@ -314,7 +314,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 						printe(" -> form_molecule: former failed at running action")
 				}																				();break switcher
 				
-				
+				 
 				default:
 					printv(" -> switcher: no topbar touches")
 
