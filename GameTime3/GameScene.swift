@@ -217,7 +217,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 				// FIXME: this needs to execute after he's not moving
 				// --> if sc == 1 { akira.start_pos = akirapos }
 				
-					printd("clicked bkg")
+
 					if (GREEN == akira.node!.color
 						&& nil != akira.act_list[safe: cs])
 					{												                                      {
