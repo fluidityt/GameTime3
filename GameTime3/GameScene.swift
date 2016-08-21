@@ -16,16 +16,24 @@ class GameScene: SKScene, UITextFieldDelegate {
 	//<#MARK: - didMovetoView()#>
 	override func didMoveToView(view: SKView) {
 		
+		
 		//-Super initials
 		current_steps += 1
 		total_steps   += 1
 		error_node?.name = "error"
 		
+		
+		//-Make my nodes from editor work in code
 		initNodes: do {
 		
+		
+			//------------------
+			// Utility Function
+			//------------------
+			
 			//-TODO: Deal with scope issue on .self
 			//-TODO: Check for nil AFTER addNode returns
-			var lol = self
+			///-Shortcut for self.cNWN()
 			func addNode (node_name: String)
 				-> SKNode
 			{
@@ -43,45 +51,46 @@ class GameScene: SKScene, UITextFieldDelegate {
 				
 			}
 			
+			///-Shortcut for self.cNWN().cNWN()
 			func addNode2 (node_name: String, to this: String) -> SKNode {
-				//-TODO: Add guard...
 				print(" -> addNode2: attempting \(node_name)")
-				return self.childNodeWithName(this)!.childNodeWithName(node_name)!
-				
+				 return self.childNodeWithName(this)!.childNodeWithName(node_name)!
 			}
+			
+			///-Shortcut for self.cNWN().cNWM().cNWN()
 			func addNode3 (node_name: String, to this: String, from that: String) -> SKNode {
-				//-TODO: Add guard...
 				printl(" -> addNode3: attempting \(node_name)")
 				 return	self.childNodeWithName(that)!
 									.childNodeWithName(this)!
-										.childNodeWithName(node_name)!
-				
-			}
+										.childNodeWithName(node_name)!}
 
-			
-			typealias SKSN = SKSpriteNode
-			typealias SKLN = SKLabelNode
 	
+			//-------------
+			// Assign Nodes
+			//-------------
 			
 			//-TODO: Change these into addSprite, addLabel, etc
+    		typealias SKSN = SKSpriteNode
+			typealias SKLN = SKLabelNode
+	
 			//-GameScene
-			bkgg				= addNode("bkgg")				as? SKSpriteNode
-			akira.node		= addNode("Akira")			as? SKSpriteNode
-			player			= addNode("plaar")			as? SKSpriteNode
+			bkgg				= addNode("bkgg")									as? SKSpriteNode
+			akira.node		= addNode("Akira")								as? SKSpriteNode
+			player			= addNode("plaar")								as? SKSpriteNode
 			
 			//-bkgg
-			menu_right = addNode2("menu_right", to: "bkgg")		as? SKSpriteNode
-			top_bar	  = addNode2("top_bar", to: "bkgg")			as? SKSN
+			menu_right		= addNode2("menu_right", to: "bkgg")		as? SKSpriteNode
+			top_bar			= addNode2("top_bar",	 to: "bkgg")		as? SKSpriteNode
 			
 			//-atom_bar
-			prev_atom		= addNode3("prev_atom", to: "top_bar", from: "bkgg") as? SKLN
-			next_atom		= addNode3("next_atom", to: "top_bar", from: "bkgg") as? SKLN
+			prev_atom		= addNode3("prev_atom",  to: "top_bar", from: "bkgg")		as? SKLN
+			next_atom		= addNode3("next_atom",  to: "top_bar", from: "bkgg")		as? SKLN
+			atom_bar			= addNode3("atom_bar",   to: "top_bar", from: "bkgg")		as? SKLN
 			form_molecule	= addNode3("form_molecule", to: "top_bar", from: "bkgg") as? SKLN
-			atom_bar			= addNode3("atom_bar", to: "top_bar", from: "bkgg")	as? SKLN
 			
 			//-menu_right
-			Marc		  = addNode3("Marc", to: "menu_right", from: "bkgg")		as? SKSpriteNode
-			ship		  = addNode3("ship", to: "menu_right", from: "bkgg")		as? SKSpriteNode
+			Marc				= addNode3("Marc", to: "menu_right", from: "bkgg")			as? SKSN
+			ship				= addNode3("ship", to: "menu_right", from: "bkgg")			as? SKSN
 			
 			printl("ALL FUCKING NODES INITIALIZED OMG GO TO BED")
 			
@@ -92,6 +101,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 		}; /* End initNodes */
 		
 		
+		//-Programmic nodes
 		makeLabel: do {
 			
 			myLabel.text			= "Hello, World!"
@@ -130,38 +140,50 @@ class GameScene: SKScene, UITextFieldDelegate {
 		// NOTE: Do I need to removeAllActions()?
 		// TODO: make these guys modular (not just akira)
 		
+		
+		//-Init
 		movem = false
 		
+		
 		//-Utility:
-		func doAction(action: SKAction, on node: SKNode?){
+		func doAction( node: SKNode?, will action: SKAction) {
 			guard (node != nil) else {
 				printd("->doAction failed--did you initialize node?"); return
 			}; node!.runAction(action)
 		}
 		
+		
 		//-Main touch processoereor
 		for touch in touches {	defer { total_steps = ts;	current_steps = cs	}
 			
+			
+			//-init2.0
 			var
 				TPOINT  = touch.locationInNode(self),
 				cs      = current_steps,
 				ts		  = total_steps
 			
-			// tloc = TPOINT
 			
 			//-Move player
-			doAction ( .moveTo(TPOINT, duration: 2), on: player )
+			doAction (player, will: .moveTo(TPOINT, duration: 2))
 			
-			//-Get stuff then switch it (label and do are formatting only)
+			
+			
+			//---------------
+			// Switch Touches
+			//---------------
+			
 			switcher: do {
 			
 			  //-Prep switch statement
 			  var test_node: String? = nodeAtPoint(TPOINT).name;
-				
 			  guard (test_node != nil)
-			   else { printd("found nil"); return }
+			    else { printd("found nil"); return }
 				
+				
+			  //-Switch the touchpoint:
 			  switch test_node! {
+				
 				
 				case "Akira":
 				// Toggle Color:
@@ -181,7 +203,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 					
 					cs -= 1
 					
-					cs == 0	?	cs += 1	:	doAction(akira.act_list[cs], on: akira.node)
+					cs == 0	?	cs += 1	:	doAction(akira.node, will: akira.act_list[cs])
 					
 					new_actions = false
 
@@ -192,27 +214,26 @@ class GameScene: SKScene, UITextFieldDelegate {
 				
 					cs += 1
 					
-					()/////
+					()///////////////////////////////////////
 						ts < cs
-					?																	{//
-						if (new_actions == true) {
-							//-increase ts on new action
-							ts += 1
-							akira.act_list.append(DEF_ACTION)
-						}
-						else {
-							//-dont let cs go past ts
-							cs -= 1
-						}																}()//
+					?																	{
+							if (new_actions == true) {
+								//-increase ts on new action
+								ts += 1
+								//-Def action for no bad unwraps
+								akira.act_list.append(DEF_ACTION)
+							}
+							else {
+								//-dont let cs go past ts
+								cs -= 1
+							}																}()
 					:
 						//-run the anim
-						doAction(akira.act_list[cs], on: akira.node)
-					;///////
+						doAction(akira.node, will: akira.act_list[cs])
+					;//////////////////////////////////////
 					
 					new_actions = false
 					
-					
-			
 				
 				case "form_molecule", "atom_bar":
 				//-Play Stored Atoms
@@ -233,7 +254,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 					?
 						//-Set the sequence then play it
 						{let listed  = SKAction.sequence    (akira.act_list)
-						doAction(listed, on:akira.node) }()
+						doAction(akira.node, will: listed) }()
 					:
 						//-Binding didn't occur..
 						printd("akira failed at running an action")
@@ -247,9 +268,10 @@ class GameScene: SKScene, UITextFieldDelegate {
 					
 						menu_right_open
 					?
-						menu_right!.runAction(A_MOVE_LEFT)//doAction(A_MOVE_LEFT, on: menu_right)
+						doAction(menu_right, will: A_MOVE_LEFT)
 					:
-						menu_right!.runAction(A_MOVE_RIGHT)//doAction(A_MOVE_RIGHT, on: menu_right)
+						doAction(menu_right, will: A_MOVE_RIGHT)
+				
 				
 				case "ship":
 					movem = true
