@@ -136,53 +136,49 @@ class GameScene: SKScene, UITextFieldDelegate {
 //-----------------------
 
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+		for touch in touches {	defer { total_steps = ts;	current_steps = cs	}
 		// TODO: some logic to only have one green sprite at a time
 		// NOTE: Do I need to removeAllActions()?
 		// TODO: make these guys modular (not just akira)
-		
-		
-		//-Init
-		movem = false
-		
-		
-		//-Utility:
-		func doAction( node: SKNode?, will action: SKAction) {
-			guard (node != nil) else {
-				printd("->doAction failed--did you initialize node?"); return
-			}; node!.runAction(action)
-		}
-		
-		
-		//-Main touch processoereor
-		for touch in touches {	defer { total_steps = ts;	current_steps = cs	}
+	
 			
+  //------------\\
+ // Utility Func \\
+//----------------\\
+			///-Non-oop version of runAction
+			func doAction( node: SKNode?, will action: SKAction) {
+				
+				//-Check for nil
+				guard (node != nil) else {
+					printd("->doAction failed--did you initialize node?")
+					return
+				}
+				
+				//-Run it
+				node!.runAction(action)
+			}
 			
-			//-init2.0
+			///-Alternate menus
+			func closeMenuRight() {
+				if (menu_right_open == true) {
+					menu_right_open = false
+					menu_right!.runAction(A_MOVE_RIGHT)}
+			}
+	
+  //----\\
+ // Init \\
+//--------\\
 			var
 				TPOINT  = touch.locationInNode(self),
 				cs      = current_steps,
 				ts		  = total_steps
 			
-			
 			//-Move player
-//			doAction (player, will: .moveTo(TPOINT, duration: 2))
+			doAction (player, will: .moveTo(TPOINT, duration: 2))
 			
+			//-No dragging
+			movem = false
 			
-			
-//---------------
-// <#Switch Touches#>
-//---------------
-			
-			switcher: do {
-			
-			 //-Utility
-			 func closeMenuRight() {
-					if (menu_right_open == true) {
-						menu_right_open = false
-						menu_right!.runAction(A_MOVE_RIGHT)
-					}
-					}
-				
 			  //-Prep switch statement
 			  var test_node: String? = nodeAtPoint(TPOINT).name;
 			  guard (test_node != nil)
@@ -197,26 +193,49 @@ class GameScene: SKScene, UITextFieldDelegate {
 					    dragger = newnode[z]!
 				}
 				
-			  //-Switch the touchpoint:
-			  switch_for_players: do { }
-			  switch_for_topbar:  do { }
-			  switch_for_menus:   do { }
-			  switch test_node! {
-				
+			//-Switch the touchpoint:
+			switcher: do {
+
+
+  //--------\\
+ //  Nodes	 \\
+//------------\\
+				switch test_node! {
 			
 				case "Akira":
 				// Toggle Color:
 				
-					//----------------------------
 						akira.node! .color == GREEN
 					?
 						akira.node! .color =  RED
 					:										(
-						akira.node!.color  =  GREEN)
-					//-----------------------------
+						akira.node! .color  =  GREEN)
+																									break switcher
+
 				
+				default:
+				// Move Akira / Update actions
+				// TODO: Make clicked empty space func (for checks or bit mask states)
+				// FIXME: this needs to execute after he's not moving
+				// --> if sc == 1 { akira.start_pos = akirapos }
 				
-				case "prev_atom":
+						GREEN == akira.node!.color
+						&& nil != akira.act_list[safe: cs]
+					?												                                      {
+						akira.act_list[cs] = moveSprite(akira.node!, to: TPOINT)
+						new_actions = true															      }()
+					:
+						printl("default case move")
+				
+				}
+				
+
+  //-----\\
+ //  Top  \\
+//---------\\
+				switch test_node! {
+	
+				case "prev_atom": {
 				//-TODO: put safe act interface
 				//-Save any new actions before jumping back
 					
@@ -225,46 +244,45 @@ class GameScene: SKScene, UITextFieldDelegate {
 					cs == 0	?	cs += 1	:	doAction(akira.node, will: akira.act_list[cs])
 					
 					new_actions = false
+				}																				();break switcher
 
-//-------------
-// Next Atom
-//-------------
 
-				case "next_atom":
+				case "next_atom": {
 				//-Start Next Atom
 				//--Don't progress next step if no new actions have been added
 				
+					//-Up one step:
 					cs += 1
 					
-					//-----------------------------------------------
+					//-Check ternary: total steps < current step
 						ts < cs
-					?																		{
+					?																								{
 						if new_actions == true {
 							
-							ts += 1 /* increase ts on new action */
+							//-Increase ts on new action
+							ts += 1
 							
-							//-Def action for no bad unwraps
+							//-Default action for no bad unwraps:
 							akira.act_list.append(DEF_ACTION)
 							
-						} else { cs -= 1} /* don't go past ts */
-																					}()
+						}
+						//-Don't go past ts:
+						else { cs -= 1}
+																													}()
 					:
-						//-Run the anim
+						//-Run the anim:
 						doAction(akira.node, will: akira.act_list[cs])
-					//----------------------------------------------------
 					
+					//-Reset counter:
 					new_actions = false
+				}																				();break switcher
 					
-//--------------
-// Form Molecule
-//--------------
 
-				case "form_molecule", "atom_bar":
+				case "form_molecule", "atom_bar": {
 				//-Play Stored Atoms
 					
 					//-TODO: fix this hotfix (it's a bug)
 					defer { cs = ts }
-					
 					
 					//-Reset some stuff
 					printl("Replaying Atoms")
@@ -282,13 +300,21 @@ class GameScene: SKScene, UITextFieldDelegate {
 					:
 						//-Binding didn't occur..
 						printd("akira failed at running an action")
+				}																				();break switcher
 				
 				
-//-------------
-// Menu Right
-//-------------
+				default:
+					print("no topbar")
 
-				case "menu_right":
+				}
+	
+
+  //----\\
+ // Menu \\
+//--------\\
+				switch test_node! {
+
+				case "menu_right": {
 				//-Open / close the menu
 				
 					toggle(&menu_right_open)
@@ -298,9 +324,9 @@ class GameScene: SKScene, UITextFieldDelegate {
 						doAction(menu_right, will: A_MOVE_LEFT)
 					:
 						doAction(menu_right, will: A_MOVE_RIGHT)
+				}																				(); break switcher
 				
-				
-				case "ship":
+				case "ship": {
 				// Do stuff
 				
 					closeMenuRight()
@@ -308,57 +334,44 @@ class GameScene: SKScene, UITextFieldDelegate {
 					  ship?.removeFromParent()
 						self.addChild(ship!)
 						 dragger = ship
+				}																				(); break switcher
 				
-				
-				
-				
-				
-				case "Marc":
+
+				case "Marc": {
 				//-Repo for new objects
 				
+					
+					//-Z is the index for newnode
 					newnode.append(SKSpriteNode(imageNamed: "Spaceship"))
-					printd(newnode.description)
-				  //-Z is the index for newnode
-				  let z = newnode		.endIndex		- 1
-					printd(z)
-					newnode[z]?			.name				= "love\(z)"
-					 newnode[z]?		.zPosition		= 10
-				   	newnode[z]?		.position		= TPOINT
-						 newnode[z]?	.setScale		(0.5)
-							self			.addChild		(newnode[z]!)
-					printd("new love should be found")
+					let z = newnode.endIndex - 1;	var __=SKNode()
+					
+					/*-Modify it :D */
+					__=newnode[z]!
+							__			.name			= "love\(z)"
+							__			.zPosition	= 10
+				   		__			.position	= TPOINT
+							__			.setScale	(0.5)
+					
+					//-Add it
+					self			.addChild		(newnode[z]!)
+					 printd("new love should be found")
+				
 					//Finish up
 					closeMenuRight()
 					 movem = true
 					  dragger = newnode[z]!
+					
+				}       																		(); break switcher
 
 
-//-------------
-// Empty Space
-//-------------
-				
 				default:
-				// Move Akira / Update actions
-				// TODO: Make clicked empty space func (for checks or bit mask states)
-				// FIXME: this needs to execute after he's not moving
-				// --> if sc == 1 { akira.start_pos = akirapos }
-				
-						GREEN == akira.node!.color
-						 && nil != akira.act_list[safe: cs]
-					?												                                      {
-						akira.act_list[cs] = moveSprite(akira.node!, to: TPOINT)
-						 new_actions = true															      }()
-					:
-						printl("default case move")
-				
-				
+					print("no menu")
+				}
 
-				
-//-------------
-// End of Stuff
-//-------------
-				} // switch />
-			} // do />
+				// No matches from switch
+				printd("-> switcher: Found no matches!")
+
+			} // switcher />
 		} // for />
 	} // touchesBegan() />
 	
