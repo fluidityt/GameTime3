@@ -11,7 +11,7 @@ var dragger : SKNode?
 
 import SpriteKit
 
-//<#MARK: - GameScene{}#>
+
 class GameScene: SKScene, UITextFieldDelegate {
 	//<#MARK: - didMovetoView()#>
 	override func didMoveToView(view: SKView) {
@@ -77,9 +77,9 @@ class GameScene: SKScene, UITextFieldDelegate {
 			bkgg				= addNode("bkgg")									as? SKSpriteNode
 			akira.node		= addNode("Akira")								as? SKSpriteNode
 			player			= addNode("plaar")								as? SKSpriteNode
+			menu_right		= addNode("menu_right")		as? SKSpriteNode
 			
 			//-bkgg
-			menu_right		= addNode2("menu_right", to: "bkgg")		as? SKSpriteNode
 			top_bar			= addNode2("top_bar",	 to: "bkgg")		as? SKSpriteNode
 			
 			//-atom_bar
@@ -89,8 +89,8 @@ class GameScene: SKScene, UITextFieldDelegate {
 			form_molecule	= addNode3("form_molecule", to: "top_bar", from: "bkgg") as? SKLN
 			
 			//-menu_right
-			Marc				= addNode3("Marc", to: "menu_right", from: "bkgg")			as? SKSN
-			ship				= addNode3("ship", to: "menu_right", from: "bkgg")			as? SKSN
+			Marc				= addNode2("Marc", to: "menu_right")			as? SKSN
+			ship				= addNode2("ship", to: "menu_right")			as? SKSN
 			
 			printl("ALL FUCKING NODES INITIALIZED OMG GO TO BED")
 			
@@ -132,9 +132,10 @@ class GameScene: SKScene, UITextFieldDelegate {
 		*/
 	};///didMoveToView()/>
 	
+//-----------------------
+//<#MARK: - touchesBegan()#>
+//-----------------------
 
-
-	//<#MARK: - touchesBegan()#>
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		// TODO: some logic to only have one green sprite at a time
 		// NOTE: Do I need to removeAllActions()?
@@ -169,9 +170,9 @@ class GameScene: SKScene, UITextFieldDelegate {
 			
 			
 			
-			//---------------
-			// Switch Touches
-			//---------------
+//---------------
+// <#Switch Touches#>
+//---------------
 			
 			switcher: do {
 			
@@ -207,6 +208,9 @@ class GameScene: SKScene, UITextFieldDelegate {
 					
 					new_actions = false
 
+//-------------
+// Next Atom
+//-------------
 
 				case "next_atom":
 				//-Start Next Atom
@@ -234,7 +238,10 @@ class GameScene: SKScene, UITextFieldDelegate {
 					
 					new_actions = false
 					
-				
+//--------------
+// Form Molecule
+//--------------
+
 				case "form_molecule", "atom_bar":
 				//-Play Stored Atoms
 					
@@ -260,7 +267,10 @@ class GameScene: SKScene, UITextFieldDelegate {
 						printd("akira failed at running an action")
 					;/////
 				
-				
+//-------------
+// Menu Right
+//-------------
+
 				case "menu_right":
 				//-Open / close the menu
 				
@@ -275,12 +285,19 @@ class GameScene: SKScene, UITextFieldDelegate {
 				
 				case "ship":
 					movem = true
+					ship?.removeFromParent()
+					self.addChild(ship!)
+					
 					dragger = ship
 					
 					if (menu_right_open == true) {
 						menu_right_open = false
 						menu_right!.runAction(A_MOVE_RIGHT)
 					}
+
+//-------------
+// Empty Space
+//-------------
 				
 				default: /** if (clicked(empty_space)) */
 				// Move Akira / Update actions
@@ -305,6 +322,11 @@ class GameScene: SKScene, UITextFieldDelegate {
 		} // for />
 	} // touchesBegan() />
 	
+	
+//--------------
+// <#Touches Moved#>
+//--------------
+
 	override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		//-Main touch processoereor
 		for touch in touches {

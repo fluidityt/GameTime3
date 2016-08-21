@@ -1,15 +1,14 @@
 /**
 	TODO:
-	-	figure out parent movement dynamic shit
 	-	add other toons
 	-	array for new objects
-	-	close menu on object pickup
-		change parents?
-	-  how to unlock all nodes
-	-	xp with node.parent = can change
+
 
 	LATER:
-	-  fix label constraints
+	- scale node smaller the closer to y=0 (3d effect)
+
+	- how to unlock all nodes
+	- fix label constraints
 	- figure out start positions
 	- check for safety at all cs locations
 	- figure out how to switch spawners
@@ -17,12 +16,8 @@
 	- put globes into each block call
 
 	BUG:
-	-  drag and drop from menu
-	-	changed parent in skeditor fucks over addNode()
 	vv (hotfix): cs not updating on form molecule (replay)
-	xx anims not working on ns / ps
-	xx fix insert / append statements
-	xx- -> ns (ts doesn't go past but cs does)
+
 
 */
 				func Todoing(){}
