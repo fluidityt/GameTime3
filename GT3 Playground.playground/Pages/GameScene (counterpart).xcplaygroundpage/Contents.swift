@@ -2,7 +2,7 @@
 	TODO:
 	-	add other toons
 	-	array for new objects
-
+	- clone a node
 
 	LATER:
 	- scale node smaller the closer to y=0 (3d effect)
@@ -16,7 +16,8 @@
 	- put globes into each block call
 
 	BUG:
-	vv (hotfix): cs not updating on form molecule (replay)
+	- Top  bar getting pushed around
+		vv (hotfix): cs not updating on form molecule (replay)
 
 
 */

@@ -294,6 +294,15 @@ class GameScene: SKScene, UITextFieldDelegate {
 						menu_right_open = false
 						menu_right!.runAction(A_MOVE_RIGHT)
 					}
+				
+				case "Marc":
+				printd("j")
+					/*
+						1. make a new node
+						2. copy traits from Marc
+						3. Hide Marc
+						4. dragger = newMarc
+				   */
 
 //-------------
 // Empty Space
@@ -341,7 +350,10 @@ class GameScene: SKScene, UITextFieldDelegate {
 	
 	//-Udatess
 	override func update(currentTime: CFTimeInterval) {
+		//-TODO: Add an if statement to reduce resources
 		atom_bar!.text = "Atom: \(current_steps) / \(total_steps)"
+		
+		
 	};///update()/>
 	
 	
