@@ -9,10 +9,8 @@ class GameScene: SKScene, UITextFieldDelegate {
 	//<#MARK: - didMovetoView()#>
 	override func didMoveToView(view: SKView) {
 	//super pc method  //lap: no it succks!
-		//pc: no its gr8
 		
-
-		
+		//furthermore you suck!
 		//SUPER important method from laptop
 		//-Super initials
 		current_steps += 1
