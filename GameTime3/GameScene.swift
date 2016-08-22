@@ -1,12 +1,6 @@
 
-//
 //  GameScene.swift
 //  GT3
-//
-//  Created by Dude Guy on 8/6/16.
-//  Copyright (c) 2016 Dude Guy. All rights reserved.
-
-
 
 import SpriteKit
 
@@ -64,7 +58,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 
 	
 			//-------------
-			// Assign Nodes
+			// Assign Nodes<##>
 			//-------------
 			
 			//-TODO: Change these into addSprite, addLabel, etc
@@ -75,32 +69,25 @@ class GameScene: SKScene, UITextFieldDelegate {
 			bkgg				= addNode("bkgg")									as? SKSpriteNode
 			akira.node		= addNode("Akira")								as? SKSpriteNode
 			player			= addNode("plaar")								as? SKSpriteNode
-			menu_right		= addNode("menu_right")		as? SKSpriteNode
+			menu_right		= addNode("menu_right")							as? SKSpriteNode
 			
 			//-bkgg
 			top_bar			= addNode2("top_bar",	 to: "bkgg")		as? SKSpriteNode
 			
 			//-atom_bar
-//			prev_atom		= addNode3("prev_atom",  to: "top_bar", from: "bkgg")		as? SKLN
-//			next_atom		= addNode3("next_atom",  to: "top_bar", from: "bkgg")		as? SKLN
-			atom_bar			= addNode3("atom_bar",   to: "atom_bar_b", from: "bkgg")		as? SKLN
-//			form_molecule	= addNode3("form_molecule", to: "top_bar", from: "bkgg") as? SKLN
+			atom_bar			= addNode3("atom_bar",to: "atom_bar_b", from: "bkgg")	   as? SKLN
 			
 			//-menu_right
-//			Marc				= addNode2("Marc", to: "menu_right")			as? SKSN
 			ship				= addNode2("ship", to: "menu_right")			as? SKSN
 			marc_label		= addNode3("marc_label", to: "Marc", from: "menu_right") as? SKLN
+			
 			printv("ALL NODES INITIALIZED")
 			
-			
-			func nilCheck() {} // Make sure lol..
 		
+		}//ini/>
 		
-		}; /* End initNodes */
-		
-		
-		/*//-Programmic nodes
 		makeLabel: do {
+			/*//-Programmic nodes
 			
 			myLabel.text			= "Hello, World!"
 			 myLabel.fontSize 	= 45
@@ -111,20 +98,22 @@ class GameScene: SKScene, UITextFieldDelegate {
 			    myLabel.name = "center label"
 			
 			self.addChild(myLabel)
-			
-		}; /* END makeLabel */ */
-			};///didMoveToView()/>
+			*/
+		};
+		
+	};///didMoveToView()/>
+	
 	
 //-----------------------
 //<#MARK: - touchesBegan()#>
 //-----------------------
-
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		for touch in touches {	defer { total_steps = ts;	current_steps = cs	}
 		// TODO: some logic to only have one green sprite at a time
 		// NOTE: Do I need to removeAllActions()?
 		// TODO: make these guys modular (not just akira)
-	
+		printl("__tb__")
+			
 			
   //------------\\
  // Utility Func \\
@@ -142,16 +131,17 @@ class GameScene: SKScene, UITextFieldDelegate {
 				node!.runAction(action)
 			}
 			
-			///-Alternate menus
 			//-TODO: DO I even need this?
+			///-Alternate menu open and closed
 			func closeMenuRight() {
 				if (menu_right_open == true) {
 					menu_right_open = false
 					menu_right!.runAction(A_MOVE_RIGHT)}
 			}
 	
+	
   //----\\
- // Init \\
+ //<#Init#> \\
 //--------\\
 			var
 		   	TPOINT  = touch.locationInNode(self),
@@ -164,19 +154,28 @@ class GameScene: SKScene, UITextFieldDelegate {
 			//-No dragging
 			movem = false
 			
-			//-Prep switch statement
+			//-Prep switch statement / check nil
 			var test_node: String? = nodeAtPoint(TPOINT).name;
 			 guard (test_node != nil)
 				else { printe("-> before switch: found nil");
 				 return
 			}
 			
-			//-Switch the touchpoint:
+			
+//-----------------------
+//-Switch the touchpoint:
+//-----------------------
 			switcher: do {
 				
-				defer { 	if(test_node! != "menu_right") { closeMenuRight() }
+				//-Close the menu on regular click
+				defer {
+				 	if(test_node! != "menu_right" || test_node! != "menu_right_button") { closeMenuRight() }
 				}
 
+				//-Verbose
+				printv("-> first switch: \(test_node!)")
+
+				//-Early exit for newnode / mylove
 				Hotfix({
 				//-Shortens hassle for newnode indexed clicking
 				if (test_node!.containsString("love")) {
@@ -184,11 +183,12 @@ class GameScene: SKScene, UITextFieldDelegate {
 					  let z = newnode.endIndex - 1
 					   dragger = newnode[z]!
 						 test_node! = "break"
-					}}); if(test_node! == "break") { break switcher }
-			
+					}});if(test_node! == "break") { break switcher }
+				
+				
 				
   //--------\\
- //  Nodes	 \\
+ //  Nodes	 \\<##>
 //------------\\
 				switch test_node! {
 			
@@ -228,14 +228,14 @@ class GameScene: SKScene, UITextFieldDelegate {
 				}																				(); break switcher
 					
 				 default: {
-					printv("-> switcher: found no nodes (or clicked one is not in case)")
+					printv("-> switcher <nodes>: default:")
 				 }()
 				 
-				}// sw1 />
+				}//nod/>
 				
 
   //-----\\
- //  Top  \\
+ //  Top  \\<##>
 //---------\\
 				switch test_node! {
 	
@@ -281,12 +281,15 @@ class GameScene: SKScene, UITextFieldDelegate {
 					new_actions = false
 				}																				();break switcher
 					
+				
 				case  "atom_bar", "atom_bar_b": {
 				//-TODO: Make this not suck
 							doAction(akira.node, will: akira.act_list[cs-1])
 							doAction(akira.node, will: akira.act_list[cs])
 					
-				}(); break switcher
+				}																				(); break switcher
+				
+				
 				case "form_molecule": {
 				//-Play Stored Atoms
 					
@@ -316,20 +319,20 @@ class GameScene: SKScene, UITextFieldDelegate {
 				
 				 
 				default:
-					printv(" -> switcher: no topbar touches")
+					printv("-> switcher <topbar>: default:")
+					
 
-				}
+				}//top/>
 	
 
   //----\\
- // Menu \\
+ // Menu \\<##>
 //--------\\
 				switch test_node! {
 
-				
-				case "menu_right", "mr_button": {
+				case "menu_right", "menu_right_button": {
 				//-Open / close the menu
-				
+					
 					toggle(&menu_right_open)
 					
 						menu_right_open
@@ -337,6 +340,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 						doAction(menu_right, will: A_MOVE_LEFT)
 					:
 						doAction(menu_right, will: A_MOVE_RIGHT)
+					
 				}																				(); break switcher
 				
 				case "ship": {
@@ -376,12 +380,12 @@ class GameScene: SKScene, UITextFieldDelegate {
 
 
 				default:
-					printv(" -> switcher: no menu touched")
+					printv(" -> switcher <menu>: default")
 				}
 
 				// No matches from switch
 				//-TODO: Change this to printE
-				printl("-> switcher: Found no matches!\n")
+				printl("-> switcher <exit>: NO CASES \n")
 			
 
 			} // switcher />
@@ -427,13 +431,4 @@ class GameScene: SKScene, UITextFieldDelegate {
 	
 	
 
-};//////// GameSprite/>
-
-//////
-//
-////
-//
-//
-//
-//
-//
+};

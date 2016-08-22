@@ -27,6 +27,7 @@ SOMEDAY:-----------------------------------
 - put init confirms on all ur class
 
 --BUG:--------------------------------------
+ARGGGHHH FUCKING DEFER
 vv (hotfix): cs not updating on form molecule (replay)
 
 
@@ -34,6 +35,8 @@ vv (hotfix): cs not updating on form molecule (replay)
 				func Todoing(){}
 /**
 	REMEMBER:
+	- check your defer statements
+	
 	- remember Class.func may just be func
 	- ALWAYS CHECK FOR NIL
 	- ALWAYS CHECK NAMES / SK TYPES
