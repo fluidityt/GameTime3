@@ -9,22 +9,63 @@
 
     import Foundation
     import SpriteKit
-	 
+
+
+	func nilno(potentially_nil_value: Any?,_ error_msg:String="",_ run_this: ()->()) {
+		var s2 : String
+		if error_msg == "" { s2 = "-> nilno: Found a nil value!" }
+		else { s2 = error_msg }
+
+		if potentially_nil_value == nil {
+			printe(s2)
+			return
+		}
+		else {
+			run_this()
+		}
+	}
+
+
+	func safeAssign <ReturnType> (value_to_return: ReturnType?)	-> ReturnType {
+
+		// Ensure safety
+		guard value_to_return != nil else {
+
+			// Entry: found nil
+			print ("SR -> 1  : SR: $0 was nil! Can't assign to lhs")
+
+			// Value is irrelevant at this point--
+			// --switching value_to_return would be confusing
+			let type = value_to_return
+
+			switch ReturnType.self {
+
+			case is Int.Type:
+				print("SR -> 2.1: assigning lhs to default Int >0<")
+				return 0 as! ReturnType
+
+			case is String.Type:
+				print("SR -> 2.2: assigning lhs to default String")
+				return "" as! ReturnType
+
+			default:
+				// In case our switch breaks, we will know why it crashes
+				print("SR -> 2.0: No cases found--RTE incoming")
+
+			}//switch/>
+
+
+			// Should force crash, but at least I'll know exactly why
+			return type!
+
+		}//guard/>
+
+		// Let's get out of here safely ;)
+		print("SR -> Exit: Successfully Assigned lhs to \(value_to_return!)")
+	 return value_to_return!
+		
+	}//safeAssign/>
 	
-    extension SKAction {
-         public class func colorizeWithColor(color color: UIColor, colorBlendFactor: CGFloat, duration sec: NSTimeInterval) -> SKAction
-         {
-            return (
-                SKAction.colorizeWithColor(
-                            color,
-                             colorBlendFactor: colorBlendFactor,
-                              duration: sec)
-            )
-         }
-     
-    }
-
-
 
 
 
@@ -44,12 +85,7 @@
     public func printe<t>(s: t) { print("ERRAR: \(s)")   }
     public func printv<t>(s: t) { if verbose == true {print("VERB: \(s)")   }}
     public func printt<t>(s: t) { print("TEST: \(s)")   }
-	
-    public func printd<t, z>(name:z,_ s: t) { print("DEBUG: <\(name)> -> \(s)") }
-    public func printl<t, z>(name:z,_ s: t) { print("LOG: <\(name)> -> \(s)")   }
-    public func printe<t, z>(name:z,_ s: t) { print("ERRAR: <\(name)> -> \(s)")   }
-	
-//<#MARK: - MATH:#>
+	//<#MARK: - MATH:#>
     /** for visibility on lhs (many things already are on rhs
     and because swift 3 is going to suck*/
     func plusplus(inout variable: Int)
@@ -93,21 +129,7 @@
 			block()
 		  }
 	}
-//<#MARK: - SK:#>
-    //public func addNode(){}
-    /*
-    
-    extension SKNode {
-        func runAction(node: SKNode!,_ action: SKAction)
-        {            node.runAction(action)        }
-        
-        func runAction(node: SKNode!, action: SKAction, duration: NSTimeInterval)
-        {            node.runAction(action)        }
-        
-    }
-    */
-    ///-Squashing out the OOP
-   
+
 //<#MARK: - Extensions#>
     /// Adds multiline conformity when splitting commas
     
@@ -120,8 +142,25 @@
         }
     }
 
-	
-	
+	extension SKAction {
+		public class func colorizeWithColor(color color: UIColor, colorBlendFactor: CGFloat, duration sec: NSTimeInterval) -> SKAction
+		{
+			return (
+				SKAction.colorizeWithColor(
+					color,
+					colorBlendFactor: colorBlendFactor,
+					duration: sec)
+			)
+		}
+
+	}
+
+
+
+
+
+
+
 	//<#MARK: - RANDOM FUNCS#>
 	func moveSprite( name :SKSpriteNode? = player, to_the :vector)
 		-> SKAction

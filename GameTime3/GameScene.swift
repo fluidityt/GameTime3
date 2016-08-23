@@ -8,13 +8,7 @@ import SpriteKit
 class GameScene: SKScene, UITextFieldDelegate {
 	//<#MARK: - didMovetoView()#>
 	override func didMoveToView(view: SKView) {
-	//super pc method  //lap: no it succks!
-		//pc: no its gr8
-		
 
-		
-		//SUPER important method from laptop
-		//-Super initials
 		current_steps += 1
 		total_steps   += 1
 		error_node?.name = "error"
@@ -124,7 +118,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 //----------------\\
 			///-Non-oop version of runAction
 			func doAction( node: SKNode?, will action: SKAction) {
-				
+				/*
 				//-Check for nil
 				guard (node != nil) else {
 					printe("->doAction failed--did you initialize node?")
@@ -133,6 +127,10 @@ class GameScene: SKScene, UITextFieldDelegate {
 				
 				//-Run it
 				node!.runAction(action)
+				*/
+
+				nilno(node, "doaction failed", {	node!.runAction(action) })
+
 			}
 			
 			//-TODO: DO I even need this?
@@ -181,9 +179,9 @@ class GameScene: SKScene, UITextFieldDelegate {
 
 				//-Early exit for newnode / mylove
 				Hotfix({
-				//-Shortens hassle for newnode indexed clicking
-				if (test_node!.containsString("love")) {
-					movem = true
+					//-Shortens hassle for newnode indexed clicking
+					if (test_node!.containsString("love")) {
+					 movem = true
 					  let z = newnode.endIndex - 1
 					   dragger = newnode[z]!
 						 test_node! = "break"
@@ -201,7 +199,7 @@ class GameScene: SKScene, UITextFieldDelegate {
 				
 					verbose = true
 					printv("toggled on")
-				}(); break switcher
+				}																				(); break switcher
 				
 					
 				case "Akira": {
@@ -299,26 +297,25 @@ class GameScene: SKScene, UITextFieldDelegate {
 					
 					//-TODO: fix this hotfix (it's a bug)
 					defer { cs = ts }
+
 					new_actions = false
 					
 					//-Reset some stuff
-					printl("Replaying Atoms")
 					 akira.node!     .color      = .redColor()
 					  akira.node!    .position   = akira.start_pos
 					   myLabel       .text       = "replaying"
-					
-					
-						//-Ensure safety
-						(akira.act_list[safe: cs]) != nil
-					?
-						/*-Set the sequence then play it*/												{
+
+
+					//-Set the sequence then play it
+					nilno(akira.act_list[safe: cs],
+						" -> form_molecule: <> failed at running action",
+					{
+						printl("Replaying Atoms")
 						akira.act_list.removeFirst()
-						 let listed  = SKAction.sequence (akira.act_list)
-						  doAction(akira.node, will: listed)
-						   akira.act_list.insert(DEF_ACTION, atIndex:0)								}()
-					:
-						//-Binding didn't occur..
-						printe(" -> form_molecule: former failed at running action")
+						let listed  = SKAction.sequence (akira.act_list)
+				  		doAction(akira.node, will: listed)
+						akira.act_list.insert(DEF_ACTION, atIndex:0)
+					})
 				}																				();break switcher
 				
 				 
@@ -435,4 +432,4 @@ class GameScene: SKScene, UITextFieldDelegate {
 	
 	
 
-};
+};.
