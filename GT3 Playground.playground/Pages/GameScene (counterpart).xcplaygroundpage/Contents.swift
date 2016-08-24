@@ -48,8 +48,7 @@ vv (hotfix): cs not updating on form molecule (replay)
 				func remembering(){}
 
 /*
- it's friday, friday, friday, gotta get wine on friday,
-	everybody looking JEWard to the weekend <3
+
 */
 
 			  //------------\\
@@ -61,3 +60,30 @@ vv (hotfix): cs not updating on form molecule (replay)
 			  //----\\
 			 // Init \\
 			//--------\\
+
+func Test(description: String,_ block: ()->() ) {
+	block()
+}
+
+Test("some risky code!", {
+	let s = "over nine thousand!"
+	 print (s) }
+)
+
+
+public struct Hotfix {
+	public init(_ block: ()->()){
+		block()
+	}
+}
+
+Hotfix({
+	let s = "Move along, just a quick patch-job here"
+	 print (s)}
+)
+
+
+initialize_variable: do {
+	let s = "Init Complete"
+	 print (s)
+}

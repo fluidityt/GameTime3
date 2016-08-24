@@ -62,12 +62,12 @@ struct ref {
 
 // ref.arrays
 
-//_=Test_block(.off, " moves plaar to touched spot", {
-	//	let loc		= touch.locationInNode(self)
-	//	let action	= SKAction.moveTo(loc, duration: 0.5)
-	//	player!.runAction(action)
+Test_block(.off, " moves plaar to touched spot", {
+		let loc		= touch.locationInNode(self)
+		let action	= SKAction.moveTo(loc, duration: 0.5)
+		player!.runAction(action)
 	
-//);
+);
 
 
 */
