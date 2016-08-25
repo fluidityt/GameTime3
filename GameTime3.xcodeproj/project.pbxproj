@@ -21,6 +21,7 @@
 		C1DC12BF1D63F99100C17ADD /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DC12BB1D63F99100C17ADD /* GameViewController.swift */; };
 		C1DC12C01D63F99100C17ADD /* StoryToon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DC12BC1D63F99100C17ADD /* StoryToon.swift */; };
 		C1DC12C21D6414AF00C17ADD /* GS Pubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DC12C11D6414AF00C17ADD /* GS Pubs.swift */; };
+		C1F08D291D6E307400756193 /* running.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F08D281D6E307400756193 /* running.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		C1DC12BB1D63F99100C17ADD /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		C1DC12BC1D63F99100C17ADD /* StoryToon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryToon.swift; path = GameTime3/StoryToon.swift; sourceTree = "<group>"; };
 		C1DC12C11D6414AF00C17ADD /* GS Pubs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GS Pubs.swift"; sourceTree = "<group>"; };
+		C1F08D281D6E307400756193 /* running.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = running.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			children = (
 				C1DC12C11D6414AF00C17ADD /* GS Pubs.swift */,
 				C1DC12B31D63F96500C17ADD /* GS Repo.swift */,
+				C1F08D281D6E307400756193 /* running.swift */,
 			);
 			name = Junk;
 			path = GameTime3;
@@ -199,6 +202,7 @@
 				C12BBF331D63F4BB00A64C48 /* AppDelegate.swift in Sources */,
 				C1DC12B71D63F97200C17ADD /* Globaling.swift in Sources */,
 				C1DC12B81D63F97200C17ADD /* GS Utilities.swift in Sources */,
+				C1F08D291D6E307400756193 /* running.swift in Sources */,
 				C1DC12BF1D63F99100C17ADD /* GameViewController.swift in Sources */,
 				C1DC12B41D63F96500C17ADD /* GS Repo.swift in Sources */,
 				C1DC12C01D63F99100C17ADD /* StoryToon.swift in Sources */,
