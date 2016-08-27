@@ -1,7 +1,20 @@
 	
 //  GameScene.swift
 //  GT3
-
+/*
+	Styling:
+	
+	global: fun_times
+	local:  _fun_times
+	pram:		fun_time_
+	
+	label:	camelCase:
+	func:		camelCase()
+	other:	CamelCase{}
+	
+	
+	
+*/
 import SpriteKit
 import UIKit
 /*
@@ -17,9 +30,9 @@ import UIKit
 	
 	struct action {
 	
-		starting position
+starting position
 		ending position
-		
+							
 		action
 	
 	}
@@ -30,7 +43,7 @@ import UIKit
 //----------
 //GameScene:
 //----------
-
+	var fun_timE = 1
 /// Our game!!
 	class GameScene: SKScene, UITextFieldDelegate {
 
@@ -42,12 +55,11 @@ import UIKit
 		override func didMoveToView(view: SKView) {
 			
 			/// Because we have to!
-			initVariables: do
-			{
+			initVariables: do	{
 				current_steps 		+= 1
 				total_steps   		+= 1
 				error_node?.name	= "error"
-				SELF			 	= self //dont laugh
+				SELF						 	= self //dont laugh
 			}
 			
 			//-Make my nodes from editor work in code
@@ -100,13 +112,17 @@ import UIKit
 //
 		func ouchesBegan(touch: UITouch,_ event: UIEvent?) {
 			
+			
 			// Local Variables (for use in switch)
 			var
 				TPOINT    = touch.locationInNode(self),
 				cs        = current_steps,
-				ts		  = total_steps,
+				ts		    = total_steps,
 				test_node = nodeAtPoint(TPOINT).name
 			
+			
+			
+			total_steps = 2
 			// Utility Function
 			/// Non-oop version of runAction
 			func doAction( node: SKNode?, will action: SKAction) {
@@ -309,10 +325,11 @@ import UIKit
 					// Do stuff
 					
 					movem = true
-					ship?.removeFromParent()
-					self.addChild(ship!)
-					dragger = ship
-					ship?.zPosition = 0
+					
+					 ship?.removeFromParent()
+					  self.addChild(ship!)
+					    ship?.zPosition = 0
+								dragger = ship
 					
 				}																			();
 					
@@ -326,13 +343,13 @@ import UIKit
 					
 					//Modify it :D
 					__=newnode[z]!
-					__				.name		= "love\(z)"
-					__				.zPosition	= 1
-					__				.position	= TPOINT
-					__				.setScale	(0.5)
+					__						.name				= "love\(z)"
+					__						.zPosition	= 1
+					__						.position		= TPOINT
+					__						.setScale		(0.5)
 					
 					//-Add it
-					self			.addChild		(newnode[z]!)
+					addChild(newnode[z]!)
 					
 					//Finish up
 					movem = true
