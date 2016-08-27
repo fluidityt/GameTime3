@@ -59,9 +59,6 @@ var vvc = 0
 	cam				:	SKCameraNode?
 	
 
-
-
-	
 //-------------
 // Story Toons:
 //-------------
@@ -97,7 +94,7 @@ let
 	aDEF_ACTION  	= SKAction.colorizeWithColor(
 								color: BLUE,
 								colorBlendFactor: 1.0,
-								duration: 1.0)		//
+					duration: 1.0)		//
 
 
 // <#MARK: -StoryToon#>
@@ -108,7 +105,6 @@ struct StoryToon {
 	///stores all actions. make sure it isn't read or wrote to empty
 	var
 	act_list			: [SKAction]					= [],
-	
 	node				: SKSpriteNode?				,
 	
 	start_pos		= CGPoint(x: 0,y: 0),

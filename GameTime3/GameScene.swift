@@ -4,7 +4,28 @@
 
 import SpriteKit
 import UIKit
+/*
+	positions need to be separate from actions
 
+	
+	next atom -> play next, but needs a cut off if there is a sceond press, and IDK
+	how the positions are going to work, if A4 requires A to be at A3, not A3.5
+	
+	(could warp to final destination before playing a4)
+	
+	sounds like a struct
+	
+	struct action {
+	
+		starting position
+		ending position
+		
+		action
+	
+	}
+
+	
+*/
 	
 //----------
 //GameScene:
@@ -36,21 +57,27 @@ import UIKit
 				typealias SKSN = SKSpriteNode;	typealias SKLN = SKLabelNode
 				
 				//-GameScene
-				bkgg			= addNode("bkgg")								as? SKSpriteNode
-				akira.node		= addNode("Akira")								as? SKSpriteNode
-				player			= addNode("plaar")								as? SKSpriteNode
-				menu_right		= addNode("menu_right")							as? SKSpriteNode
+				bkgg			= addNode("bkgg")			as? SKSpriteNode
+				akira.node		= addNode("Akira")			as? SKSpriteNode
+				player			= addNode("plaar")			as? SKSpriteNode
+				menu_right		= addNode("menu_right")		as? SKSpriteNode
 				
 				//-bkgg
-				top_bar			= addNode2("top_bar",	 to: "bkgg")			as? SKSpriteNode
+				top_bar
+					= addNode2("top_bar",	 to: "bkgg") 	as? SKSpriteNode
 				
 				//-atom_bar
-				atom_bar		= addNode3("atom_bar",to: "atom_bar_b", from: "bkgg") as? SKLN
+				atom_bar
+					= addNode3("atom_bar",to: "atom_bar_b", from: "bkgg") as? SKLN
 				
 				//-menu_right
-				ship			= addNode2("ship", to: "menu_right")				  as? SKSN
-				marc_label		= addNode3("marc_label", to: "Marc", from: "menu_right") as? SKLN
+				ship
+					= addNode2("ship", to: "menu_right")				 	 as? SKSN
+				marc_label
+					= addNode3("marc_label", to: "Marc", from: "menu_right") as? SKLN
 				
+				
+				// We're done!
 				printv("ALL NODES INITIALIZED")
 				
 				
@@ -72,7 +99,6 @@ import UIKit
 //
 //
 		func ouchesBegan(touch: UITouch,_ event: UIEvent?) {
-			
 			
 			// Local Variables (for use in switch)
 			var
