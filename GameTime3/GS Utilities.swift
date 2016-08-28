@@ -10,16 +10,17 @@
 //------------------
 
 	/// Toggles a bool t / f
-	public func toggle(inout variable:Bool) {												 v = "toggle"
+	public func toggle (inout variable:Bool) {												 v = "toggle"
         variable == true ?
             (variable = false) : (variable = true)
 	}
 
 	/// oop?
-   public func showDictValues<t1, t2>(ok: Dictionary<t1, t2> ){								v = "showDictValues"
+   public func showDictValues<t1, t2> (ok: Dictionary<t1, t2> ){								v = "showDictValues"
         print(("\(ok.count) \(ok.description)"))
    }
 	
+	public func append<T> (inout array: Array,_ value: T) {}
 	
 	
 //---------------
@@ -72,6 +73,15 @@
 //<#MARK: - Extensions#>
 //------------------
 
+	/// OOP killer:
+		extension SKNode {
+			func removeFromParent(node: SKNode?){
+				nilno(node) {
+					node?.removeFromParent()
+				}
+			}
+		}
+		
 	/// Makes safe extensions array[safe: index]
 	extension Array {
 	  subscript(safe index: Int) -> Element? {

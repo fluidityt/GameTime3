@@ -1,4 +1,9 @@
-	
+// 
+
+
+// put things into one hotkey
+
+
 //  GameScene.swift
 //  GT3
 /*
@@ -67,25 +72,27 @@ starting position
 				
 				//-TODO: Change these into addSprite, addLabel, etc
 				typealias SKSN = SKSpriteNode;	typealias SKLN = SKLabelNode
+				typealias Spr = Sprites
+				typealias Lbl = Labels
 				
 				//-GameScene
-				bkgg			= addNode("bkgg")			as? SKSpriteNode
+				s.bkgg			= addNode("bkgg")			as? SKSpriteNode
 				akira.node		= addNode("Akira")			as? SKSpriteNode
-				player			= addNode("plaar")			as? SKSpriteNode
-				menu_right		= addNode("menu_right")		as? SKSpriteNode
+				s.player			= addNode("plaar")			as? SKSpriteNode
+				s.menu_right		= addNode("menu_right")		as? SKSpriteNode
 				
 				//-bkgg
-				top_bar
+				Spr.top_bar
 					= addNode2("top_bar",	 to: "bkgg") 	as? SKSpriteNode
 				
 				//-atom_bar
-				atom_bar
+				l.atom_bar
 					= addNode3("atom_bar",to: "atom_bar_b", from: "bkgg") as? SKLN
 				
 				//-menu_right
-				ship
+				s.ship
 					= addNode2("ship", to: "menu_right")				 	 as? SKSN
-				marc_label
+				l.marc_label
 					= addNode3("marc_label", to: "Marc", from: "menu_right") as? SKLN
 				
 				
@@ -143,7 +150,7 @@ starting position
 						?
 							menu_right_open = false
 						:
-						doAction(menu_right, will: aMOVE_RIGHT)
+						doAction(Sprites.menu_right, will: aMOVE_RIGHT)
 				}
 			}
 			// Initial things to do:
@@ -153,7 +160,7 @@ starting position
 				movem = false
 		
 				// Move player
-				doAction (player, will: .moveTo(TPOINT, duration: 2))
+				doAction (Sprites.player, will: .moveTo(TPOINT, duration: 2))
 			}
 			
 			// Prepare for switch statement
@@ -290,7 +297,7 @@ starting position
 					//-Reset some stuff
 					akira.node!     .color      = .redColor()
 					akira.node!    .position   = akira.start_pos
-					myLabel       .text       = "replaying"
+					Labels.myLabel       .text       = "replaying"
 					
 					
 					//-Set the sequence then play it
@@ -315,23 +322,50 @@ starting position
 					
 					menu_right_open
 						?
-					doAction(menu_right!, will: aMOVE_LEFT)
+					doAction(Sprites.menu_right!, will: aMOVE_LEFT)
 						:
-					doAction(menu_right!, will: aMOVE_RIGHT)
+					doAction(Sprites.menu_right!, will: aMOVE_RIGHT)
 					
 				}																			();
 					
 				case "ship": {																v="ship"
 					// Do stuff
-					
+					typealias Sp = Sprites
 					movem = true
 					
-					 ship?.removeFromParent()
-					  self.addChild(ship!)
-					    ship?.zPosition = 0
-								dragger = ship
+					Test(){
+						self.removeFromParent(Sp.ship)
+					}// Sp.ship?.removeFromParent()
 					
+					addChild(Sp.ship!)
+					
+					Sp.ship?.zPosition = 0
+					dragger = Sp.ship
+					
+					struct Items {
+						var one = 2
+						
+						static var item_list = 2
+						var item_arry = "fun"
+						var two = 3
 				}																			();
+			
+					func giveItem(item: Items){
+						print(item.one)
+					}
+	
+					
+					
+					func sellItem(){}
+					func equipItem(){}
+					func upgradeItem(){}
+					
+					
+					
+					
+					var bomb = Items()
+					
+					Item
 					
 					
 				case "Marc", "marc_label": {												v="marc/label"
