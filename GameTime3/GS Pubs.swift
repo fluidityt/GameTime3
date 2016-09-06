@@ -8,3 +8,44 @@
 //
 
 import Foundation
+
+/*
+
+struct Items {
+  var one = 2
+
+  static var item_list = 2
+  var item_arry = "fun"
+  var two       = 3
+}
+
+
+();
+
+func giveItem (item: Items) {
+
+  print (item.one)
+}
+
+
+func sellItem () {
+
+}
+
+
+func equipItem () {
+
+}
+
+
+func upgradeItem () {
+
+}
+
+
+var bomb = Items ()
+
+Item
+
+
+*/
