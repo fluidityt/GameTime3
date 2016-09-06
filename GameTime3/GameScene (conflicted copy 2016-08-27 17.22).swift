@@ -1,11 +1,4 @@
-// 
-
-
-// put things into one hotkey
-// learn ore about debugger
-// editor for assets.. josh can use.
-
-
+	
 //  GameScene.swift
 //  GT3
 /*
@@ -74,22 +67,18 @@ starting position
 				
 				//-TODO: Change these into addSprite, addLabel, etc
 				typealias SKSN = SKSpriteNode;	typealias SKLN = SKLabelNode
-				typealias Spr = Sprites
-				typealias Lbl = Labels
-				childno
+				typealias Sp = Sprites
+				typealias l = Labels
+				
 				//-GameScene
 				s.bkgg			= addNode("bkgg")			as? SKSpriteNode
-				akira.node		= childNodeWithName("Akira")			as? SKSpriteNode
-				
-				
-				
-				
-				
+				akira.node		= addNode("Akira")			as? SKSpriteNode
 				s.player			= addNode("plaar")			as? SKSpriteNode
 				s.menu_right		= addNode("menu_right")		as? SKSpriteNode
 				
 				//-bkgg
-				Spr.top_bar					= childNodeWithName("top_bar",	 to: "bkgg") 	as? SKSpriteNode
+				s.top_bar
+					= addNode2("top_bar",	 to: "bkgg") 	as? SKSpriteNode
 				
 				//-atom_bar
 				l.atom_bar
@@ -132,6 +121,8 @@ starting position
 				cs        = current_steps,
 				ts		    = total_steps,
 				test_node = nodeAtPoint(TPOINT).name
+			
+			
 			
 			total_steps = 2
 			// Utility Function
@@ -309,11 +300,10 @@ starting position
 					      " -> form_molecule: <> failed at running action",
 					      {
 							printl("Replaying Atoms")
-							
 							akira.act_list.removeFirst()
-							 let listed  = SKAction.sequence (akira.act_list)
-							  doAction(akira.node, will: listed)
-							   akira.act_list.insert(aDEF_ACTION, atIndex:0)
+							let listed  = SKAction.sequence (akira.act_list)
+							doAction(akira.node, will: listed)
+							akira.act_list.insert(aDEF_ACTION, atIndex:0)
 					})
 				}																			();
 //

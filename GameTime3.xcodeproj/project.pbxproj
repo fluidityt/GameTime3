@@ -11,6 +11,7 @@
 		C12BBF3C1D63F4BB00A64C48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C12BBF3A1D63F4BB00A64C48 /* Main.storyboard */; };
 		C12BBF3E1D63F4BB00A64C48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C12BBF3D1D63F4BB00A64C48 /* Assets.xcassets */; };
 		C12BBF411D63F4BB00A64C48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C12BBF3F1D63F4BB00A64C48 /* LaunchScreen.storyboard */; };
+		C145FC811D736918002EE41D /* GS Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C145FC801D736918002EE41D /* GS Utilities.swift */; };
 		C16EA6FD1D645C00008B7CBA /* RefRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16EA6FC1D645C00008B7CBA /* RefRepo.swift */; };
 		C1D6D2BA1D66F8D2004DB5D9 /* MyActions.sks in Resources */ = {isa = PBXBuildFile; fileRef = C1D6D2B91D66F8D2004DB5D9 /* MyActions.sks */; };
 		C1DC12B41D63F96500C17ADD /* GS Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DC12B31D63F96500C17ADD /* GS Repo.swift */; };
@@ -32,6 +33,7 @@
 		C12BBF401D63F4BB00A64C48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C12BBF421D63F4BB00A64C48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C12BBF4A1D63F60E00A64C48 /* GT3 Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "GT3 Playground.playground"; sourceTree = "<group>"; };
+		C145FC801D736918002EE41D /* GS Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "GS Utilities.swift"; path = "../../../../../Desktop/GS Utilities.swift"; sourceTree = "<group>"; };
 		C16EA6FC1D645C00008B7CBA /* RefRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefRepo.swift; sourceTree = "<group>"; };
 		C1D6D2B91D66F8D2004DB5D9 /* MyActions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = MyActions.sks; path = ../MyActions.sks; sourceTree = "<group>"; };
 		C1DC12B31D63F96500C17ADD /* GS Repo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GS Repo.swift"; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				C1DC12B91D63F99100C17ADD /* GameScene.sks */,
 				C1DC12BA1D63F99100C17ADD /* GameScene.swift */,
 				C1DC12B61D63F97200C17ADD /* GS Utilities.swift */,
+				C145FC801D736918002EE41D /* GS Utilities.swift */,
 				C1DC12BC1D63F99100C17ADD /* StoryToon.swift */,
 				C1DC12B51D63F97200C17ADD /* Globaling.swift */,
 				C12BBF4A1D63F60E00A64C48 /* GT3 Playground.playground */,
@@ -204,6 +207,7 @@
 				C1DC12B81D63F97200C17ADD /* GS Utilities.swift in Sources */,
 				C1F08D291D6E307400756193 /* running.swift in Sources */,
 				C1DC12BF1D63F99100C17ADD /* GameViewController.swift in Sources */,
+				C145FC811D736918002EE41D /* GS Utilities.swift in Sources */,
 				C1DC12B41D63F96500C17ADD /* GS Repo.swift in Sources */,
 				C1DC12C01D63F99100C17ADD /* StoryToon.swift in Sources */,
 				C16EA6FD1D645C00008B7CBA /* RefRepo.swift in Sources */,
