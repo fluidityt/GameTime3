@@ -20,7 +20,7 @@
         print(("\(ok.count) \(ok.description)"))
    }
 	
-	//public func append<T> (inout array: Array,_ value: T) {}
+	public func append<T> (inout array: Array,_ value: T) {}
 	
 	
 //---------------
@@ -102,11 +102,11 @@
 //<#MARK: - SKStuff#>:
 //-----------------
 	/// Moving sprites
-	//func moveSprite (named: SKSpriteNode? = player, to_the: CGVector,_ duration: NSTimeInterval = 0.25)
-	//{	v="moveSprite";	named!.runAction (SKAction.moveBy (to_the, duration: duration))	}
+	func moveSprite (named: SKSpriteNode? = player, to_the: CGVector,_ duration: NSTimeInterval = 0.25)
+	{	v="moveSprite";	named!.runAction (SKAction.moveBy (to_the, duration: duration))	}
 	
-	//func moveSprite( name :SKSpriteNode? = player, to :CGPoint)
-	//{ v="moveSprite2"; name!.runAction (SKAction.moveTo(to, duration: 0.5)) }
+	func moveSprite( name :SKSpriteNode? = player, to :CGPoint)
+	{ v="moveSprite2"; name!.runAction (SKAction.moveTo(to, duration: 0.5)) }
 	
 	//-TODO: Check for nil AFTER addNode returns
 	///-Shortcut for self.cNWN()
@@ -117,11 +117,11 @@
 			guard nil != SELF.childNodeWithName(node_name) else {
 				printe("-> addNode: failed to init \(node_name)" +
 					"check spelling-- check node type-- check nil")
-				return Nodes.Plain.error_node!
+				return error_node!
 			}
 			
 			//-Initialize it (node = return())
-			Engine.Lists.node_list.insert(node_name)
+			node_list.insert(node_name)
 			
 			printv("-> addNode \(node_name) success--")
 			return (SELF.childNodeWithName(node_name)!)
@@ -131,14 +131,14 @@
 	///-Shortcut for self.cNWN().cNWN()
 	func addNode2 (node_name: String, to this: String) -> SKNode {
 		printv(" -> addNode2: attempting \(node_name) ")
-		Engine.Lists.node_list.insert(node_name)
+		node_list.insert(node_name)
 		return SELF.childNodeWithName(this)!.childNodeWithName(node_name)!
 	}
 	
 	///-Shortcut for self.cNWN().cNWM().cNWN()
 	func addNode3 (node_name: String, to this: String, from that: String) -> SKNode {
 		printv(" -> addNode3: attempting \(node_name)")
-		Engine.Lists.node_list.insert(node_name)
+		node_list.insert(node_name)
 		return	SELF.childNodeWithName(that)!
 					.childNodeWithName(this)!
 					.childNodeWithName(node_name)!

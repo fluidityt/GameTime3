@@ -1,35 +1,35 @@
+//
+//  GS StoryToon{}.swift
+//  Game Try 2
+//
+//  Created by Dude Guy on 8/12/16.
+//  Copyright © 2016 Dude Guy. All rights reserved.
+//
 import SpriteKit
 import Foundation
 
 
-class StoryToon {
+/** Story Toon is fun */
 
-  // stores all actions. make sure it isn't read or wrote to empty
-  var
-  act_list: [SKAction] = [],
-  node:     SKSpriteNode?,
+	/**
+	Globes used with StoryToon:
+	 
+	-     character_list
+							  :[StoryToon]
+							  = []
+	 
+			current_steps  = 1
 
-  start_pos            = CGPoint (x: 0, y: 0),
-  prev_pos             = CGPoint (x: 0, y: 0),
-  next_pos             = 1
+			player        :SKSpriteNode?
+			Marc          :SKSpriteNode?
+			Akira         :SKSpriteNode?
 
-  // all the toons
+			cam           :SKCameraNode?
+			tloc          :CGPoint?
+	 
+			GREEN         = UIColor.greenColor()
+			RED           = UIColor.redColor()
+			DEF_ACTION    = SKAction.colorizeWithColor()
+	*/
 
-  init () {
-    defer {      printl ("st init")    }
-    ///////////
-    //-Gives index at 0 a default
-    act_list.append (Actions.DEF_ACTION)
-
-
-
-    act_list.append (SKAction.colorizeWithColor (
-        .yellowColor (),
-        colorBlendFactor: 1.0,
-        duration: 1.0))
-
-    Engine.Lists.character_list.append (self)
-
-  }
-
-}
+	let _globes_storytoon_ref   =   character_list
