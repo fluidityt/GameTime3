@@ -10,14 +10,14 @@
 //------------------
 
 	/// Toggles a bool t / f
-	public func toggle (inout variable:Bool) {																								 v = "toggle"
+	public func toggle (inout variable:Bool) {												 v = "toggle"
         variable == true ?
             (variable = false) : (variable = true)
 	}
 
 	/// oop?
-   public func showDictValues<t1, t2> (ok: Dictionary<t1, t2> ){														v = "showDictValues"
-        print(("\(ok.description)"))
+   public func showDictValues<t1, t2> (ok: Dictionary<t1, t2> ){								v = "showDictValues"
+        print(("\(ok.count) \(ok.description)"))
    }
 	
 	//public func append<T> (inout array: Array,_ value: T) {}
@@ -39,7 +39,7 @@
 //--------------
 //<#MARK: - MATH:#>
 //--------------
-    /// For visibility on lhs (many things already are on rhs) and cuz swift3 SUCKS
+    /// For visibility on lhs (many things already are on rhs)
     func plusplus(inout variable: Int)   {        variable += 1    }
 	 func negneg(inout variable: Int)     {        variable -= 1    }
 	
@@ -58,9 +58,7 @@
 		print("\n"); block()
 	}
 
-	// For when there are no compile erros, just RTE, and you are hopping from one block
-	// to another:
-	/// Allows me to move back and forth quickly with one button (next issue)
+	/// Allows me to move back and forth quickly with one button 
 	public struct Waypoint {}
 	
 	/// Alerts to me where I need to improve my code
@@ -84,13 +82,11 @@
 			}
 		}
 		
-		
 	/// Makes safe extensions array[safe: index]
 	extension Array {
 	  subscript(safe index: Int) -> Element? {
 			return index >= 0 && index < count ? self[index] : nil }
 	}
-	
 
 	/// For formatting reasons
 	extension SKAction {
@@ -114,8 +110,8 @@
 	
 	//-TODO: Check for nil AFTER addNode returns
 	///-Shortcut for self.cNWN()
-	func childNodeWithName (node_name: String)
-		-> SKNode {																																							v = "addnode"
+	func addNode (node_name: String)
+		-> SKNode {																			v = "addnode"
 			
 			//-Check for errors
 			guard nil != SELF.childNodeWithName(node_name) else {
