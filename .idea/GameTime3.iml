@@ -6,14 +6,14 @@
       <sourceFolder url="file://$MODULE_DIR$/GameTime3/Info.plist" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/GameTime3/GS Pubs.swift" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/GameTime3/running.swift" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/GameTime3/StoryToon.swift" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/GameTime3/Assets.xcassets" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/GameTime3/GS Utilities.swift" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/GameTime3/Base.lproj/LaunchScreen.storyboard" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/GameTime3/Base.lproj/Main.storyboard" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/GameTime3/StoryToon.swift" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/GameTime3/Assets.xcassets" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/GameTime3/AppDelegate.swift" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/GameTime3/Globaling.swift" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/GameTime3/Clicked.swift" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/GameTime3/AppDelegate.swift" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/GameTime3/GS Utilities.swift" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/GameTime3/GameScene.sks" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/GameTime3/GameScene.swift" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/GameTime3/RefRepo.swift" isTestSource="false" />
